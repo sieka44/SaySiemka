@@ -2,6 +2,7 @@ package saysiemka.server;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.HashSet;
 import java.util.List;
 
 public class ServerWorker extends Thread {
@@ -9,11 +10,13 @@ public class ServerWorker extends Thread {
     private final Server server;
     private String login = null;
     private OutputStream outputStream;
+    private HashSet<String> topicSet;
 
 
     public ServerWorker(Server server, Socket clientSocket){
         this.server = server;
         this.clientSocket = clientSocket;
+        topicSet = new HashSet<>();
     }
 
     @Override
@@ -45,6 +48,12 @@ public class ServerWorker extends Thread {
                 else if("join".equalsIgnoreCase(cmd)){
                     handleJoin(tokens);
                 }
+                else if("leave".equalsIgnoreCase(cmd)){
+                    handleLeave(tokens);
+                }
+                else if("exit".equalsIgnoreCase(cmd)){
+                    handleLogOff();
+                }
                 else {
                     String msg = "unknown" + cmd + "\n";
                     outputStream.write(msg.getBytes());
@@ -55,24 +64,45 @@ public class ServerWorker extends Thread {
         clientSocket.close();
     }
 
-    private void handleJoin(String[] tokens) {
+    public boolean isMemberOfTopicSet(String topic){
+        return topicSet.contains(topic);
+    }
+
+    private void handleLeave(String[] tokens){
         if(tokens.length > 1){
             String topic = tokens[1];
-
+            topicSet.remove(topic);
         }
     }
 
-    //TODO: msg format: msg <user> "message"
+    private void handleJoin(String[] tokens) {
+        if(tokens.length > 1){
+            String topic = tokens[1];
+            topicSet.add(topic);
+        }
+    }
+
+    //TODO: msg format: msg <user> "message...
+    //TODO: msg format: msg <#topic> "message...
     private void handleMessage(String[] tokens) throws IOException {
         String sendTo = tokens[1];
         String body = tokens[2];
 
         List <ServerWorker> workerList = server.getWorkerList();
 
+        boolean isTopic = sendTo.charAt(0) == '#';
+
         for (ServerWorker worker:workerList) {
-            if(sendTo.equals(worker.getLogin())){
-                String outMsg = "msg " + login + " " + body + "\n";
-                worker.send(outMsg);
+            if(isTopic){
+                if(worker.isMemberOfTopicSet(sendTo)){
+                    String outMsg = "msg " + sendTo + ":" + login + " " + body + "\n";
+                    worker.send(outMsg);
+                }
+            }else {
+                if (sendTo.equals(worker.getLogin())) {
+                    String outMsg = "msg " + login + " " + body + "\n";
+                    worker.send(outMsg);
+                }
             }
         }
     }
@@ -81,13 +111,13 @@ public class ServerWorker extends Thread {
         return login;
     }
 
-    private void hadleLogin(OutputStream stream, String[] tokens) throws IOException{
+    private void hadleLogin(OutputStream outputStream, String[] tokens) throws IOException{
         if (tokens.length == 3){
             String login = tokens[1];
             String password = tokens[2];
-            //TODO: not hardcoded users
+            //TODO: not hardcoded users(guest,guest1)
             if ((login.equals("guest") && password.equals("guest"))||(login.equals("guest1") && password.equals("guest1"))){
-                stream.write("OK - LoggedIn".getBytes());
+                outputStream.write("ok login".getBytes());
                 this.login = login;
                 System.out.println("Log in successful: " + login);
 
@@ -106,7 +136,9 @@ public class ServerWorker extends Thread {
                     worker.send(onLineMsg2);
                 }
             }else {
-                stream.write("error login".getBytes());
+                String msg = "error login\n";
+                outputStream.write(msg.getBytes());
+                System.out.println("Login failed for " + login);
             }
         }
     }
