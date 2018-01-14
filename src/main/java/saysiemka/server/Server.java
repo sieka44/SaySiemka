@@ -1,5 +1,7 @@
 package saysiemka.server;
 
+import saysiemka.db.MockDb;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -14,6 +16,7 @@ public class Server implements Runnable {
 	private List<ServerClient> clients = new ArrayList<ServerClient>();
 	private List<Integer> clientResponse = new ArrayList<Integer>();
 
+    private MockDb database;
 	private DatagramSocket socket;
 	private int port;
 	private boolean running = false;
@@ -23,6 +26,7 @@ public class Server implements Runnable {
 	private boolean raw = false;
 
 	public Server(int port) {
+	    database = new MockDb();
 		this.port = port;
 		try {
 			socket = new DatagramSocket(port);
@@ -202,14 +206,21 @@ public class Server implements Runnable {
 	private void process(DatagramPacket packet) {
 		String string = new String(packet.getData());
 		if (raw) System.out.println(string);
-		if (string.startsWith("/c/")) {
-			int id = UniqueIdentifier.getIdentifier();
-			String name = string.split("/c/|/e/")[1];
-			System.out.println(name + "(" + id + ") connected!");
-			clients.add(new ServerClient(name, packet.getAddress(), packet.getPort(), id));
-			String ID = "/c/" + id;
-			send(ID, packet.getAddress(), packet.getPort());
-		} else if (string.startsWith("/m/")) {
+        if (string.startsWith("/c/")) {
+            int id = UniqueIdentifier.getIdentifier();
+            String name = string.split("/c/|/e/")[1];
+            String ID;
+            if(database.contains(name,null)){
+                System.out.println(name + "(" + id + ") connected!");
+                clients.add(new ServerClient(name, packet.getAddress(), packet.getPort(), id));
+                ID = "/c/" + id;
+                send(ID, packet.getAddress(), packet.getPort());
+            }else {
+                ID = "/f/" + id;
+                send(ID, packet.getAddress(), packet.getPort());
+            }
+            send(ID, packet.getAddress(), packet.getPort());
+        } else if (string.startsWith("/m/")) {
 			sendToAll(string);
 		} else if (string.startsWith("/d/")) {
 			String id = string.split("/d/|/e/")[1];

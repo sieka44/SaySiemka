@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class MockDb {
     LinkedList<String> users;
 
-    MockDb(){
+    public MockDb(){
         users = new LinkedList<>();
         users.add("zbychu");
         users.add("krzychu");

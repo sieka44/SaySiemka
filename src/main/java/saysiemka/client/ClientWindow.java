@@ -13,7 +13,7 @@ public class ClientWindow implements Runnable {
 
 	private boolean running = false;
 
-	public ClientWindow(String name, String address, int port) {
+	public ClientWindow(String name, String password, String address, int port) {
 		client = new Client(name, address, port);
 		boolean connect = client.openConnection(address);
 		if (!connect) {
@@ -21,7 +21,7 @@ public class ClientWindow implements Runnable {
 			console("Connection failed!");
 		}
 		console("Attempting a connection to " + address + ":" + port + ", user: " + name);
-		String connection = "/c/" + name + "/e/";
+		String connection = "/c/" + name + "/e/";//TODO: add password
 		client.send(connection.getBytes());
 		running = true;
 		run = new Thread(this, "Running");
@@ -49,7 +49,12 @@ public class ClientWindow implements Runnable {
 					if (message.startsWith("/c/")) {
 						client.setID(Integer.parseInt(message.split("/c/|/e/")[1]));
 						console("Successfully connected to server! ID: " + client.getID());
-					} else if (message.startsWith("/m/")) {
+					} else if (message.startsWith("/f/")) {
+                        client.setID(Integer.parseInt(message.split("/f/|/e/")[1]));
+                        console("Failed to connect to server!");
+                        running = false;
+                        client.close();
+                    } else if (message.startsWith("/m/")) {
 						String text = message.substring(3);
 						text = text.split("/e/")[0];
 						console(text);
