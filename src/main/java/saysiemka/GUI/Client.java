@@ -1,11 +1,9 @@
-package saysiemka.client;
+package saysiemka.GUI;
 
 import java.io.IOException;
 import java.net.*;
 
 public class Client {
-	private static final long serialVersionUID = 1L;
-
 	private DatagramSocket socket;
 
 	private String name, address;

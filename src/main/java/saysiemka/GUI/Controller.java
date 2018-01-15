@@ -1,130 +1,117 @@
 package saysiemka.GUI;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.fxml.FXML;
+import saysiemka.userInfo;
 
-public class Controller {
+import java.util.Arrays;
+
+public class Controller implements Runnable{
     @FXML
     private TextField chatMessageFiled;
 
     @FXML
     private TextArea chatTextArea;
 
-    private final DatagramSocket socket;
+    @FXML
+    private ListView userList;
 
-    private String myName;
+    private Thread run, listen;
+    private Client client;
 
-    public Controller() throws SocketException {
+    private boolean running = false;
+
+    public Controller() {
         super();
-        this.socket = new DatagramSocket(8080);
-    }
-
-    public String getTextFieldText() {
-        return this.chatMessageFiled.getText();
+        login(userInfo.getLogin(),userInfo.getPassword(),"localhost",userInfo.getPORT());
     }
 
     @FXML
     protected void sendMessage() {
-        try {
-            this.broadcastDatagram(this.getTextFieldText());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        this.addMessageToTextArea("Me", this.getTextFieldText());
-
+        send(chatMessageFiled.getText(),true);
         this.chatMessageFiled.setText("");
     }
 
-    public void addMessageToTextArea(String computerName, String message) {
-        this.chatTextArea.appendText(computerName + "> " + message + "\n");
-    }
-
-    // --- Socket Code ------------------------------------------------------
-
-    public void broadcastDatagram(String text)
-            throws IOException {
-        byte[] outbuf = new byte[1024];
-
-        String msg = getMyName() + "|" + text;
-
-        for (int i = 1; i < 254; i++) {
-            sendPacket(this.socket, msg.getBytes(), msg.length(), i);
+    private void login(String name, String password, String address, int port) {
+        client = new Client(name, address, port);
+        boolean connect = client.openConnection(address);
+        if (!connect) {
+            System.err.println("Connection failed!");
+            console("Connection failed!");
         }
+        console("Attempting a connection to " + address + ":" + port + ", user: " + name);
+        String connection = "/c/" + name + "/e/";//TODO: add password
+        client.send(connection.getBytes());
+        running = true;
+        run = new Thread(this, "Running");
+        run.start();
     }
 
-    private void sendPacket(final DatagramSocket socket, byte[] message,
-                            int len, int i) throws UnknownHostException, SocketException {
-        final DatagramPacket request = new DatagramPacket(message, len,
-                InetAddress.getByName("192.168.0." + i), 8080);
+    public void run() {
+        listen();
+    }
 
-        new Thread(new Runnable() {
-            @Override
+    private void send(String message, boolean isMessage) {//True for message
+        if (message.equals("")) return;
+        if (isMessage) {
+            message = client.getName() + ": " + message;
+            message = "/m/" + message + "/e/";
+        }
+        client.send(message.getBytes());
+    }
+
+    public void listen() {
+        listen = new Thread("Listen") {
             public void run() {
-                try {
-                    socket.send(request);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                while (running) {
+                    String message = client.receive();
+                    if (message.startsWith("/c/")) {
+                        client.setID(Integer.parseInt(message.split("/c/|/e/")[1]));
+                        console("Successfully connected to server! ID: " + client.getID());
+                        userInfo.setLogedIn(true);
+                    } else if (message.startsWith("/f/")) {
+                        client.setID(Integer.parseInt(message.split("/f/|/e/")[1]));
+                        console("Failed to connect to server!");
+                        running = false;
+                        userInfo.setLogedIn(false);
+                        client.close();
+                    } else if (message.startsWith("/m/")) {
+                        String text = message.substring(3);
+                        text = text.split("/e/")[0];
+                        chatTextArea.appendText(text + "\n");
+                    } else if (message.startsWith("/i/")) {
+                        String text = "/i/" + client.getID() + "/e/";
+                        send(text, false);
+                    } else if (message.startsWith("/u/")) {
+                        String[] u = message.split("/u/|/n/|/e/");
+                        userUpdate(Arrays.copyOfRange(u, 1, u.length - 1));
+                    } else if (message.startsWith("")){
+
+                    } else if (message.startsWith("/d/")) {
+                        String disconnect = "/d/" + client.getID() + "/e/";
+                        send(disconnect, false);
+                        running = false;
+                        client.close();
+                    }
                 }
             }
-        }).start();
+        };
+        listen.start();
     }
 
-    public void runit() throws Exception {
-        // prompt the user to enter their name
-
-        System.out.println("Communicator 1.0");
-
-        setMyName(InetAddress.getLocalHost().getHostName());
-
-        startListen(socket);
+    private void userUpdate(String[] users){
+        userList.getItems().clear();
+        userList.getItems().addAll(users);
     }
 
-    private void startListen(final DatagramSocket socket) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    receivePacket(socket);
-                }
-            }
-        }).start();
+    public void disconnect(){
+        //TODO:disconnection
     }
 
-    private void receivePacket(DatagramSocket socket) {
-        byte[] inbuf = new byte[1024]; // default size
-
-        try {
-            DatagramPacket packet = new DatagramPacket(inbuf, inbuf.length);
-            socket.receive(packet);
-
-            if (!packet.getAddress().getHostAddress()
-                    .equals(InetAddress.getLocalHost().getHostAddress())) {
-                String msg = new String(packet.getData(), 0, packet.getLength());
-                int pos = msg.indexOf("|");
-                String name = pos >= 0 ? msg.substring(0, pos) : packet
-                        .getAddress().getHostName();
-                String text = pos >= 0 ? msg.substring(pos + 1) : msg;
-                this.addMessageToTextArea(name, text);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void console(String message) {
+        System.out.println("console: "+message);
     }
 
-    public String getMyName() {
-        return myName;
-    }
-
-    public void setMyName(String myName) {
-        this.myName = myName;
-    }
 }

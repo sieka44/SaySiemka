@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import saysiemka.userInfo;
 
 import java.io.IOException;
 
@@ -14,6 +15,7 @@ import java.io.IOException;
  * Created by barba on 03.01.2018.
  */
 public class Controller_login {
+
     @FXML
     private Button signInButton;
 
@@ -30,20 +32,27 @@ public class Controller_login {
     public void initialize() {
         signInButton.setOnAction(e -> {
             System.out.println("signing in ...");
-            //TODO login conditions
-
+            userInfo.setLoginAndPass(nick.getText(),password.getText());
             Parent root = null;
             try {
                 root = FXMLLoader.load(getClass().getResource("/fxml/communicator_fxml.fxml"));
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            Stage stage = new Stage();
-            stage.setTitle("Welcome");
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            signInButton.getParent().getScene().getWindow().hide();
-            stage.show();
+
+            while (userInfo.isLogedIn()==null){
+                System.out.println("1");
+            }
+
+            if(userInfo.isLogedIn()==true) {
+                Stage stage = new Stage();
+                stage.setTitle("SaySiemka");
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                signInButton.getParent().getScene().getWindow().hide();
+                stage.show();
+            }
+            else nick.setText("Invalid login or password");
         });
 
         signUpButton.setOnAction(e -> {
@@ -59,7 +68,7 @@ public class Controller_login {
             stage.setTitle("Signing up");
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            signInButton.getParent().getScene().getWindow().hide();
+            signUpButton.getParent().getScene().getWindow().hide();
             stage.show();
         });
     }
