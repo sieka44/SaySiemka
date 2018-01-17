@@ -1,14 +1,20 @@
 package saysiemka.GUI;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import saysiemka.userInfo;
 
 import java.util.Arrays;
 
 public class Controller implements Runnable{
+    private Stage stage;
+
     @FXML
     private TextField chatMessageFiled;
 
@@ -26,6 +32,13 @@ public class Controller implements Runnable{
     public Controller() {
         super();
         login(userInfo.getLogin(),userInfo.getPassword(),"localhost",userInfo.getPORT());
+
+        chatTextArea.getParent().getScene().getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                System.out.println("Stage is closing");
+                disconnect();
+            }
+        });
     }
 
     @FXML
@@ -51,6 +64,16 @@ public class Controller implements Runnable{
 
     public void run() {
         listen();
+    }
+
+    @FXML
+    public void initialize() {
+        chatMessageFiled.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                sendMessage();
+                event.consume();
+            }
+        });
     }
 
     private void send(String message, boolean isMessage) {//True for message
