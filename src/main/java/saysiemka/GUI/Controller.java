@@ -16,7 +16,7 @@ public class Controller implements Runnable{
     private TextArea chatTextArea;
 
     @FXML
-    private ListView userList;
+    private ListView<String> userList;
 
     private Thread run, listen;
     private Client client;
@@ -90,10 +90,7 @@ public class Controller implements Runnable{
                     } else if (message.startsWith("")){
 
                     } else if (message.startsWith("/d/")) {
-                        String disconnect = "/d/" + client.getID() + "/e/";
-                        send(disconnect, false);
-                        running = false;
-                        client.close();
+                        disconnect();
                     }
                 }
             }
@@ -107,7 +104,10 @@ public class Controller implements Runnable{
     }
 
     public void disconnect(){
-        //TODO:disconnection
+        String disconnect = "/d/" + client.getID() + "/e/";
+        send(disconnect, false);
+        running = false;
+        client.close();
     }
 
     public void console(String message) {
