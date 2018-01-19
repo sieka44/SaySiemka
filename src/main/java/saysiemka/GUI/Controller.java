@@ -13,8 +13,6 @@ import saysiemka.userInfo;
 import java.util.Arrays;
 
 public class Controller implements Runnable{
-    private Stage stage;
-
     @FXML
     private TextField chatMessageFiled;
 
@@ -32,14 +30,15 @@ public class Controller implements Runnable{
     public Controller() {
         super();
         login(userInfo.getLogin(),userInfo.getPassword(),"localhost",userInfo.getPORT());
-
-        chatTextArea.getParent().getScene().getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                System.out.println("Stage is closing");
-                disconnect();
-            }
-        });
+        //TODO: To wywala całą aplikację
+//        chatTextArea.getParent().getScene().getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
+//            public void handle(WindowEvent we) {
+//                System.out.println("Stage is closing");
+//                disconnect();
+//            }
+//        });
     }
+
 
     @FXML
     protected void sendMessage() {
@@ -109,7 +108,7 @@ public class Controller implements Runnable{
                         send(text, false);
                     } else if (message.startsWith("/u/")) {
                         String[] u = message.split("/u/|/n/|/e/");
-                        userUpdate(Arrays.copyOfRange(u, 1, u.length - 1));
+                        //userUpdate(Arrays.copyOfRange(u, 1, u.length - 1));
                     } else if (message.startsWith("")){
 
                     } else if (message.startsWith("/d/")) {

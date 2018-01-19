@@ -79,7 +79,6 @@ public class Controller_login {
         }
 
         while (userInfo.isLogedIn()==null){
-            System.out.println("1");
         }
 
         if(userInfo.isLogedIn()==true) {
