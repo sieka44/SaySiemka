@@ -2,13 +2,13 @@ package saysiemka.GUI;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
 import saysiemka.userInfo;
 
 import java.io.IOException;
@@ -17,6 +17,7 @@ import java.io.IOException;
  * Created by barba on 03.01.2018.
  */
 public class Controller_login {
+    private FXMLLoader loader;
 
     @FXML
     private Button signInButton;
@@ -53,41 +54,44 @@ public class Controller_login {
         signUpButton.setOnAction(e -> {
             System.out.println("signing up ...");
 
-            Parent root = null;
+            loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/signingUp.fxml"));
+            VBox vBox = null;
             try {
-                root = FXMLLoader.load(getClass().getResource("/fxml/signingUp.fxml"));
+                vBox = loader.load();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            Stage stage = new Stage();
-            stage.setTitle("Signing up");
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            signUpButton.getParent().getScene().getWindow().hide();
-            stage.show();
+
+            AppWindow.setTitle("Login");
+            Scene scene = new Scene(vBox);
+            AppWindow.setScene(scene);
+            AppWindow.show();
         });
     }
 
     private void signIn() {
         System.out.println("signing in ...");
         userInfo.setLoginAndPass(nick.getText(),password.getText());
-        Parent root = null;
+
+        loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/communicator_fxml.fxml"));
+        TabPane tabPane = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/communicator_fxml.fxml"));
-        } catch (IOException e1) {
-            e1.printStackTrace();
+            tabPane = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         while (userInfo.isLogedIn()==null){
         }
 
         if(userInfo.isLogedIn()==true) {
-            Stage stage = new Stage();
-            stage.setTitle("SaySiemka");
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            AppWindow.setTitle("SaySiemka");
+            Scene scene = new Scene(tabPane);
+            AppWindow.setScene(scene);
             signInButton.getParent().getScene().getWindow().hide();
-            stage.show();
+            AppWindow.show();
         }
         else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

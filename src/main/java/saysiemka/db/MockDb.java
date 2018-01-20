@@ -3,7 +3,7 @@ package saysiemka.db;
 import java.util.LinkedList;
 
 public class MockDb {
-    LinkedList<String> users;
+    static LinkedList<String> users;
 
     public MockDb(){
         users = new LinkedList<>();
@@ -15,9 +15,17 @@ public class MockDb {
         users.add("Grzegorz Brzęczyszczykiewicz");
     }
 
-    public boolean contains(String name, String password){
+    public static boolean contains(String name, String password){
         return users.contains(name);
     }
 
-    
+    public static boolean add(String name, String password) {
+        if (!contains(name, password)) {
+            users.addLast(name);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
