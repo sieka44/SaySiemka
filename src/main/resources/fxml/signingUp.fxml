@@ -9,21 +9,25 @@
 <?import javafx.scene.text.Font?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="saysiemka.GUI.Controller_signingUp">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="saysiemka.GUI.Controller_signingUp">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
             <Label layoutX="119.0" layoutY="46.0" text="nick" />
             <Label layoutX="105.0" layoutY="99.0" text="password" />
             <Label layoutX="87.0" layoutY="151.0" text="repeat password" />
+            <TextField id="nick" layoutX="226.0" layoutY="42.0" />
             <PasswordField id="password" layoutX="226.0" layoutY="95.0" />
             <PasswordField id="passwordAgain" layoutX="226.0" layoutY="147.0" />
-            <TextField id="nick" layoutX="226.0" layoutY="42.0" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Button id="signUpButton" layoutX="256.0" layoutY="44.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="88.0" style="-fx-background-color: pink; -fx-background-radius: 25;" text="Sign up">
+            <Button id="signUpButton" layoutX="256.0" layoutY="44.0" mnemonicParsing="false" onAction="#signingUp" prefHeight="55.0"
+                    prefWidth="88.0" style="-fx-background-color: pink; -fx-background-radius: 25;"
+                    text="Sign up">
                <font>
                   <Font size="16.0" />
                </font>
