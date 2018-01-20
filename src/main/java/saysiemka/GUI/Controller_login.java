@@ -72,7 +72,13 @@ public class Controller_login {
 
     private void signIn() {
         System.out.println("signing in ...");
-        userInfo.setLoginAndPass(nick.getText(),password.getText());
+        String s1 = nick.getText();
+        String s2 = password.getText();
+        if(s1.length()>0 && s2.length()>0)userInfo.setLoginAndPass(s1,s2,false);
+        else {
+            showAlert();
+            return;
+        }
 
         loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/communicator_fxml.fxml"));
@@ -83,10 +89,10 @@ public class Controller_login {
             e.printStackTrace();
         }
 
-        while (userInfo.isLogedIn()==null){
+        while (userInfo.isLoggedIn()==null){
         }
 
-        if(userInfo.isLogedIn()) {
+        if(userInfo.isLoggedIn()) {
             AppWindow.setTitle("SaySiemka");
             Scene scene = new Scene(tabPane);
             AppWindow.setScene(scene);
@@ -94,12 +100,15 @@ public class Controller_login {
             AppWindow.show();
         }
         else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Something is wrong.");
-            alert.setHeaderText("Invalid login or password.");
-            alert.setContentText("Please, check and correct it.");
-
-            alert.showAndWait();
+            showAlert();
         }
+    }
+    private void showAlert(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Something is wrong.");
+        alert.setHeaderText("Invalid login or password.");
+        alert.setContentText("Please, check and correct it.");
+
+        alert.showAndWait();
     }
 }

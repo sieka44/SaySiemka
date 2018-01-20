@@ -62,7 +62,7 @@ public class Controller implements Runnable{
             console("Connection failed!");
         }
         console("Attempting a connection to " + address + ":" + port + ", user: " + name);
-        String connection = "/c/" + name.trim() + "/p/" + password.trim() + "/e/";
+        String connection = "/c/ " + name + " /p/ " + password + " /e/";
         client.send(connection.getBytes());
         running = true;
         run = new Thread(this, "Running");
@@ -91,12 +91,12 @@ public class Controller implements Runnable{
                     if (message.startsWith("/c/")) {
                         client.setID(Integer.parseInt(message.split("/c/|/e/")[1]));
                         console("Successfully connected to server! ID: " + client.getID());
-                        userInfo.setLogedIn(true);
+                        userInfo.setLoggedIn(true);
                     } else if (message.startsWith("/f/")) {
                         client.setID(Integer.parseInt(message.split("/f/|/e/")[1]));
                         console("Failed to connect to server!");
                         running = false;
-                        userInfo.setLogedIn(false);
+                        userInfo.setLoggedIn(false);
                         client.close();
                     } else if (message.startsWith("/m/")) {
                         String text = message.substring(3);
@@ -111,11 +111,7 @@ public class Controller implements Runnable{
                     } else if (message.startsWith("/d/")) {
                         disconnect();
                     }
-                    if(setButton && chatMessageFiled!=null){
-                        setButton = false;
-                        setEventHandler();
-                    }
-
+                    if(setButton && chatTextArea!=null)setEventHandler();
                 }
             }
         };

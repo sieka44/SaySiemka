@@ -208,9 +208,10 @@ public class Server implements Runnable {
         if (raw) System.out.println(string);
         if (string.startsWith("/c/")) {
             int id = UniqueIdentifier.getIdentifier();
-            String[] identities = string.split("/c/|/e/")[1].split("/p/");
+            String token = string.split("/c/|/e/")[1];
+            String [] identities = token.split("/p/");
             String ID;
-            if (database.contains(identities[0], identities[1])) {
+            if (database.contains(identities[0].trim(), identities[1].trim())) {
                 System.out.println(identities[0] + "(" + id + ") connected!");
                 clients.add(new ServerClient(identities[0], packet.getAddress(), packet.getPort(), id));
                 ID = "/c/" + id;

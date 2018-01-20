@@ -1,6 +1,6 @@
 package saysiemka.language;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 import org.languagetool.language.BritishEnglish;

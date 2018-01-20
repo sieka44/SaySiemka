@@ -4,14 +4,16 @@ public class userInfo {
     private static final int PORT = 8100;
     private static String login;
     private static String password;
-    private static Boolean logedIn;
+    private static Boolean loggedIn;
+    private static Boolean signUp;
 
-    public static Boolean isLogedIn() {
-        return logedIn;
+
+    public static Boolean isLoggedIn() {
+        return loggedIn;
     }
 
-    public static void setLogedIn(boolean logedIn) {
-        userInfo.logedIn = logedIn;
+    public static void setLoggedIn(boolean loggedIn) {
+        userInfo.loggedIn = loggedIn;
     }
 
     public static int getPORT() {
@@ -22,10 +24,11 @@ public class userInfo {
         return login;
     }
 
-    public static void setLoginAndPass(String login, String password) {
+    public static void setLoginAndPass(String login, String password,Boolean signUp) {
+        userInfo.signUp = signUp;
         userInfo.login = login;
         userInfo.password = password;
-        logedIn = null;
+        loggedIn = null;
     }
 
     public static String getPassword() {
