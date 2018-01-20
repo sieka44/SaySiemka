@@ -7,6 +7,16 @@ public class Client {
 	private DatagramSocket socket;
 
 	private String name, address;
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
+    private Integer points;
 	private int port;
 	private InetAddress ip;
 	private Thread send;

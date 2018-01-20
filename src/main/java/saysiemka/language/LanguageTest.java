@@ -1,8 +1,9 @@
-package saysiemka.db;
+package saysiemka.language;
 
 import org.junit.Test;
 import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
+import org.languagetool.language.BritishEnglish;
 import org.languagetool.rules.RuleMatch;
 
 import java.io.IOException;
@@ -31,9 +32,21 @@ public class LanguageTest {
         Language language = Language.getLanguageForName("Polish");
         System.out.println("Test for Polish language:");
         JLanguageTool languageTool = new JLanguageTool(language);
-        String input = "kafa";
+        String input = "konstfruktor";
         List<RuleMatch> result = languageTool.check(input);
         System.out.println("Sprawdzanie: "+input);
+        for(RuleMatch ruleMatch : result){
+            System.out.println("-"+ruleMatch+"\n*"+ruleMatch.getSuggestedReplacements());
+        }
+    }
+    @Test
+    public void gettingEnglishSuggestionTest() throws IOException {
+        Language language = new BritishEnglish();
+        System.out.println("Test for English language:");
+        JLanguageTool languageTool = new JLanguageTool(language);
+        String input = "Testig it";
+        List<RuleMatch> result = languageTool.check(input);
+        System.out.println("Checking: "+input);
         for(RuleMatch ruleMatch : result){
             System.out.println("-"+ruleMatch+"\n*"+ruleMatch.getSuggestedReplacements());
         }

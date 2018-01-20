@@ -81,7 +81,7 @@ public class Controller_login {
         while (userInfo.isLogedIn()==null){
         }
 
-        if(userInfo.isLogedIn()==true) {
+        if(userInfo.isLogedIn()) {
             Stage stage = new Stage();
             stage.setTitle("SaySiemka");
             Scene scene = new Scene(root);
