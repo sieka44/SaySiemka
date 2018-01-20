@@ -86,7 +86,7 @@ public class Controller_login {
         while (userInfo.isLogedIn()==null){
         }
 
-        if(userInfo.isLogedIn()==true) {
+        if(userInfo.isLogedIn()) {
             AppWindow.setTitle("SaySiemka");
             Scene scene = new Scene(tabPane);
             AppWindow.setScene(scene);

@@ -1,13 +1,12 @@
 package saysiemka.GUI;
 
-import javafx.event.EventHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import saysiemka.language.LanguageController;
 import saysiemka.userInfo;
 
 import java.util.Arrays;
@@ -22,47 +21,26 @@ public class Controller implements Runnable{
     @FXML
     private ListView<String> userList;
 
+    LanguageController languageController;
+
     private Thread run, listen;
     private Client client;
 
+    private boolean setButton = true;
     private boolean running = false;
 
     public Controller() {
         super();
         login(userInfo.getLogin(),userInfo.getPassword(),"localhost",userInfo.getPORT());
-        //TODO: To wywala całą aplikację
-//        chatTextArea.getParent().getScene().getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
-//            public void handle(WindowEvent we) {
-//                System.out.println("Stage is closing");
-//                disconnect();
-//            }
-//        });
     }
 
 
     @FXML
     protected void sendMessage() {
-        send(chatMessageFiled.getText(),true);
+        String message = chatMessageFiled.getText();
         this.chatMessageFiled.setText("");
-    }
 
-    private void login(String name, String password, String address, int port) {
-        client = new Client(name, address, port);
-        boolean connect = client.openConnection(address);
-        if (!connect) {
-            System.err.println("Connection failed!");
-            console("Connection failed!");
-        }
-        console("Attempting a connection to " + address + ":" + port + ", user: " + name);
-        String connection = "/c/" + name + "/e/";//TODO: add password
-        client.send(connection.getBytes());
-        running = true;
-        run = new Thread(this, "Running");
-        run.start();
-    }
-
-    public void run() {
-        listen();
+        send(message,true);
     }
 
     @FXML
@@ -73,7 +51,28 @@ public class Controller implements Runnable{
                 event.consume();
             }
         });
+
     }
+
+    private void login(String name, String password, String address, int port) {
+        client = new Client(name, address, port);
+        boolean connect = client.openConnection(address);
+        if (!connect) {
+            System.err.println("Connection failed!");
+            console("Connection failed!");
+        }
+        console("Attempting a connection to " + address + ":" + port + ", user: " + name);
+        String connection = "/c/" + name.trim() + "/p/" + password.trim() + "/e/";
+        client.send(connection.getBytes());
+        running = true;
+        run = new Thread(this, "Running");
+        run.start();
+    }
+
+    public void run() {
+        listen();
+    }
+
 
     private void send(String message, boolean isMessage) {//True for message
         if (message.equals("")) return;
@@ -108,12 +107,15 @@ public class Controller implements Runnable{
                         send(text, false);
                     } else if (message.startsWith("/u/")) {
                         String[] u = message.split("/u/|/n/|/e/");
-                        //userUpdate(Arrays.copyOfRange(u, 1, u.length - 1));
-                    } else if (message.startsWith("")){
-
+                        userUpdate(Arrays.copyOfRange(u, 1, u.length - 1));
                     } else if (message.startsWith("/d/")) {
                         disconnect();
                     }
+                    if(setButton && chatMessageFiled!=null){
+                        setButton = false;
+                        setEventHandler();
+                    }
+
                 }
             }
         };
@@ -121,8 +123,13 @@ public class Controller implements Runnable{
     }
 
     private void userUpdate(String[] users){
-        userList.getItems().clear();
-        userList.getItems().addAll(users);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                userList.getItems().clear();
+                userList.getItems().addAll(users);
+            }
+        });
     }
 
     public void disconnect(){
@@ -136,4 +143,10 @@ public class Controller implements Runnable{
         System.out.println("console: "+message);
     }
 
+    public void setEventHandler(){
+        chatMessageFiled.getParent().getScene().getWindow().setOnHiding(event -> Platform.runLater(() -> {
+            disconnect();
+            System.exit(0);
+        }));
+    }
 }
