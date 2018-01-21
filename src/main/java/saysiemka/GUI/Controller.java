@@ -9,12 +9,9 @@ import javafx.scene.input.KeyCode;
 import org.languagetool.rules.RuleMatch;
 import saysiemka.language.BritishEnglishController;
 import saysiemka.language.LanguageController;
-import saysiemka.language.PolishLanguageController;
-import saysiemka.language.chainOfResponsibility.CannotHandle;
 import saysiemka.language.chainOfResponsibility.PopUpHandler;
-import saysiemka.userInfo;
 
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Controller {
@@ -43,13 +40,18 @@ public class Controller {
     protected void sendMessage() {
         String message = chatMessageFiled.getText();
         this.chatMessageFiled.setText("");
-        List<RuleMatch> list = languageController.checkGrammar(message);
+        List<RuleMatch> list;
+        String[] words = message.split(" ");
         PopUpHandler handler = new PopUpHandler();
-        for (RuleMatch rule : list) {
-            if (rule.getShortMessage() != null) {
-                handler.findPopUp(rule);
+        for (int i = 0; i < words.length; i++) {
+            list = languageController.checkGrammar(words[i]);
+            for (RuleMatch rule : list) {
+                if (rule.getShortMessage() != null) {
+                    words[i] = handler.findPopUp(rule);
+                }
             }
         }
+        message = String.join(" ", words);
         serverConnection.send(message, true);
     }
 

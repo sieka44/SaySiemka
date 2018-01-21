@@ -19,7 +19,7 @@ public class ManySuggestionsHandle implements HandlePopUp {
     }
 
     @Override
-    public void handleTask(RuleMatch rule) {
+    public String handleTask(RuleMatch rule) {
         if (rule.getSuggestedReplacements().size() < 10) {
             System.out.println("//Many suggestions!");
             System.out.println(rule.getSuggestedReplacements());
@@ -31,10 +31,10 @@ public class ManySuggestionsHandle implements HandlePopUp {
                 list.add(rule.getSuggestedReplacements().get(i));
             }
 
-            //TODO What is the good answer?
-            popUp.chooseOptionVertical("My question", list, "a");
+            return popUp.chooseOptionVertical("What should be that word?", list);
+
         } else {
-            nextPopUp.handleTask(rule);
+            return nextPopUp.handleTask(rule);
         }
     }
 }

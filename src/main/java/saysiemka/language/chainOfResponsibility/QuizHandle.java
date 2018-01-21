@@ -16,13 +16,13 @@ public class QuizHandle implements HandlePopUp {
     }
 
     @Override
-    public void handleTask(RuleMatch rule) {
+    public String handleTask(RuleMatch rule) {
         if (rule.getSuggestedReplacements().size() == 1) {
             String goodAnswer = rule.getSuggestedReplacements().get(0);
             PopUp popUp = new PopUp();
-            popUp.chooseOptionHorizontal("Which of the words is a good form?", goodAnswer);
+            return popUp.chooseOptionHorizontal("Which of the words is a good form?", goodAnswer);
         } else {
-            nextPopUp.handleTask(rule);
+            return nextPopUp.handleTask(rule);
         }
     }
 }

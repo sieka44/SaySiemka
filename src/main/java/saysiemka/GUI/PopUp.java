@@ -5,6 +5,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public class PopUp {
      * @param question   - both question and numbered answers
      * @param goodAnswer - "One", "Two" or "Three"
      */
-    public void chooseOptionHorizontal(String question, String goodAnswer) {
+    public String chooseOptionHorizontal(String question, String goodAnswer) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Prove yourself!");
         alert.setHeaderText("Choose the best option.");
@@ -43,6 +44,8 @@ public class PopUp {
         } else {
             // ... user chose CANCEL or closed the dialog
         }
+
+        return goodAnswer;
     }
 
     private String createString1(String base) {
@@ -71,20 +74,18 @@ public class PopUp {
         }else return base+"h";
     }
 
-    /**
-     * @param question
-     * @param goodAnswer
-     */
-    public void writeAnswer(String question, String goodAnswer) {
+    public String writeAnswer(String question) {
+        String retVal = null;
         TextInputDialog dialog = new TextInputDialog("Your answer");
         dialog.setTitle("Prove yourself");
         dialog.setHeaderText(question);
         dialog.setContentText("Please write the answer:");
 
         Optional<String> result = dialog.showAndWait();
-        result.ifPresent(name -> {
-            //TODO What we should do with the answer?
-        });
+        if (result.isPresent()) {
+            retVal = result.get();
+        }
+        return retVal;
     }
 
     public void goodJob() {
@@ -96,16 +97,18 @@ public class PopUp {
         alert.showAndWait();
     }
 
-    public void chooseOptionVertical(String question, List<String> choices, String goodAnswer) {
-
+    public String chooseOptionVertical(String question, List<String> choices) {
+        String retVal = null;
         ChoiceDialog<String> dialog = new ChoiceDialog<>("", choices);
         dialog.setTitle("Prove yourself!");
         dialog.setHeaderText(question);
         dialog.setContentText("Choose the answer:");
 
         Optional<String> result = dialog.showAndWait();
-        result.ifPresent(answer -> {
-            //TODO What we should do with the answer?
-        });
+        if (result.isPresent()) {
+            retVal = result.get();
+        }
+
+        return retVal;
     }
 }

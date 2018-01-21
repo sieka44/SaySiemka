@@ -17,10 +17,10 @@ public class TooManySuggestionHandle implements HandlePopUp {
     }
 
     @Override
-    public void handleTask(RuleMatch rule) {
+    public String handleTask(RuleMatch rule) {
         System.out.println("//Too many suggestions. Could u specify?");
         System.out.println(rule.getSuggestedReplacements());
         PopUp popUp = new PopUp();
-        popUp.writeAnswer("Too many sugestions. Could you specify?", "");
+        return popUp.writeAnswer("Too many sugestions. Could you specify?");
     }
 }

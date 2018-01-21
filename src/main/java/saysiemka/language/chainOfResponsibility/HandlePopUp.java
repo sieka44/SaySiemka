@@ -4,5 +4,5 @@ import org.languagetool.rules.RuleMatch;
 
 public interface HandlePopUp {
     void setNextHandler(HandlePopUp popUp);
-    void handleTask(RuleMatch rule);
+    String handleTask(RuleMatch rule);
 }

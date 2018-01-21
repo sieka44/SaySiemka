@@ -72,10 +72,11 @@ public class Controller_login {
 
     private void signIn() {
         System.out.println("signing in ...");
-        if(serverConnection==null) serverConnection= new ServerConnection();
+        if (serverConnection == null) serverConnection = new ServerConnection();
         String s1 = nick.getText();
         String s2 = password.getText();
-        if(s1.length()>0 && s2.length()>0)serverConnection.login(s1,s2,"localhost",userInfo.getPORT());
+        if (s1.length() > 0 && s2.length() > 0)
+            serverConnection.login(s1, s2, "localhost", userInfo.getPORT());
         else {
             showAlert();
             return;
@@ -90,9 +91,10 @@ public class Controller_login {
             e.printStackTrace();
         }
 
-        while (serverConnection.getLoggedIn()==null){}
+        while (serverConnection.getLoggedIn() == null) {
+        }
 
-        if(serverConnection.getLoggedIn()) {
+        if (serverConnection.getLoggedIn()) {
             AppWindow.setTitle("SaySiemka");
             Scene scene = new Scene(tabPane);
             AppWindow.setScene(scene);
@@ -100,13 +102,13 @@ public class Controller_login {
             serverConnection.setController(controller);
             controller.setServerConnection(serverConnection);
             AppWindow.show();
-        }
-        else {
+        } else {
             serverConnection.setLoggedIn(null);
             showAlert();
         }
     }
-    private void showAlert(){
+
+    private void showAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Something is wrong.");
         alert.setHeaderText("Invalid login or password.");

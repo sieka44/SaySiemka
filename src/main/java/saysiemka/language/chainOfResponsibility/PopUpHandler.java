@@ -11,9 +11,9 @@ public class PopUpHandler {
         popUp.setNextHandler(new TooManySuggestionHandle());
     }
 
-    public void findPopUp(RuleMatch rule) {
+    public String findPopUp(RuleMatch rule) {
         System.out.println("finding pop up");
         System.out.println("It may be: " + rule.getSuggestedReplacements());
-        popUp.handleTask(rule);
+        return popUp.handleTask(rule);
     }
 }
