@@ -1,7 +1,6 @@
 package saysiemka.language.chainOfResponsibility;
 
 import org.languagetool.rules.RuleMatch;
-import saysiemka.language.chainOfResponsibility.PopUpHandler;
 
 public class CannotHandle extends PopUpHandler {
     @Override

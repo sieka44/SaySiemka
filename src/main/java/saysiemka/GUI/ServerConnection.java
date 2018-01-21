@@ -118,10 +118,4 @@ public class ServerConnection implements Runnable{
     public void setLoggedIn(Boolean s){
         loggedIn = s;
     }
-//    public void setEventHandler(){
-//        chatMessageFiled.getParent().getScene().getWindow().setOnHiding(event -> Platform.runLater(() -> {
-//            disconnect();
-//            System.exit(0);
-//        }));
-//    }
 }

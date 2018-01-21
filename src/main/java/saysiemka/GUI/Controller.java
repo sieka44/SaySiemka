@@ -28,7 +28,6 @@ public class Controller{
 
     public Controller() {
         super();
-        //login(userInfo.getLogin(),userInfo.getPassword(),"localhost",userInfo.getPORT());
         languageController = new PolishLanguageController();
     }
 
@@ -50,11 +49,15 @@ public class Controller{
                 event.consume();
             }
         });
-
     }
 
     public void setServerConnection(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;
+
+        chatMessageFiled.getScene().getWindow().setOnHiding(event -> Platform.runLater(() -> {
+            serverConnection.disconnect();
+            System.exit(0);
+        }));
     }
 
     public void addText(String text){
