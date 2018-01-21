@@ -68,7 +68,6 @@ public class Controller_signingUp {
                 e.printStackTrace();
             }
 
-            //TODO inf loop
             while (serverConnection.getLoggedIn()==null){}
 
             if(serverConnection.getLoggedIn()) {
@@ -76,9 +75,9 @@ public class Controller_signingUp {
                 Scene scene = new Scene(tabPane);
                 AppWindow.setScene(scene);
                 Controller controller = (Controller) loader.getController();
+                if (controller == null) System.out.println("COS JEST NIE TAK :(((((((");
                 serverConnection.setController(controller);
                 controller.setServerConnection(serverConnection);
-                signUpButton.getParent().getScene().getWindow().hide();
                 AppWindow.show();
             }
             else {

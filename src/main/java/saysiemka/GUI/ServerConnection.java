@@ -86,12 +86,13 @@ public class ServerConnection implements Runnable{
                         String text = "/i/" + client.getID() + "/e/";
                         send(text, false);
                     } else if (message.startsWith("/u/")) {
-                        String[] u = message.split("/u/|/n/|/e/");
-                        controller.userUpdate(Arrays.copyOfRange(u, 1, u.length - 1));
+                        if(controller!=null) {
+                            String[] u = message.split("/u/|/n/|/e/");
+                            controller.userUpdate(Arrays.copyOfRange(u, 1, u.length - 1));
+                        }
                     } else if (message.startsWith("/d/")) {
                         disconnect();
                     }
-                    //if(setButton && chatTextArea!=null)setEventHandler();
                 }
             }
         };

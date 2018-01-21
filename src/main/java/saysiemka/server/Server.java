@@ -147,9 +147,9 @@ public class Server implements Runnable {
         if (clients.size() <= 0) return;
         String users = "/u/";
         for (int i = 0; i < clients.size() - 1; i++) {
-            users += clients.get(i).name + "/n/";
+            users += clients.get(i).name + ", " + database.getPoint(clients.get(i).name) + "/n/";
         }
-        users += clients.get(clients.size() - 1).name + "/e/";
+        users += clients.get(clients.size() - 1).name + ", " + database.getPoint(clients.get(clients.size() - 1).name) + "/e/";
         sendToAll(users);
     }
 
@@ -176,7 +176,6 @@ public class Server implements Runnable {
         if (message.startsWith("/m/")) {
             String text = message.substring(3);
             text = text.split("/e/")[0];
-            System.out.println(message);
         }
         for (int i = 0; i < clients.size(); i++) {
             ServerClient client = clients.get(i);
@@ -209,7 +208,7 @@ public class Server implements Runnable {
         if (string.startsWith("/c/")) {
             int id = UniqueIdentifier.getIdentifier();
             String token = string.split("/c/|/e/")[1];
-            String [] identities = token.split("/p/");
+            String[] identities = token.split("/p/");
             String ID;
             if (database.contains(identities[0].trim(), identities[1].trim())) {
                 System.out.println(identities[0] + "(" + id + ") connected!");
@@ -222,8 +221,13 @@ public class Server implements Runnable {
         } else if (string.startsWith("/s/")) {
             int id = UniqueIdentifier.getIdentifier();
             String ID;
-            if (signUp(string)) ID = "/c/" + id;
-            else ID = "/f/" + id;
+            String token = string.split("/s/|/e/")[1];
+            System.out.println(token);
+            String[] identities = token.split("/p/");
+            if (database.signIn(identities[0], identities[1])) {
+                clients.add(new ServerClient(identities[0], packet.getAddress(), packet.getPort(), id));
+                ID = "/c/" + id;
+            } else ID = "/f/" + id;
             send(ID, packet.getAddress(), packet.getPort());
         } else if (string.startsWith("/m/")) {
             sendToAll(string);
@@ -235,13 +239,6 @@ public class Server implements Runnable {
         } else {
             System.out.println(string);
         }
-    }
-
-    private boolean signUp(String string) {
-        String token = string.split("/s/|/e/")[1];
-        System.out.println(token);
-        String [] identities = token.split("/p/");
-        return database.signIn(identities[0], identities[1]);
     }
 
     private void quit() {

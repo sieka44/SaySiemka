@@ -12,6 +12,13 @@ public class MockDb {
         users.add(new User("c","c"));
     }
 
+    public int getPoint(String userName){
+        for (User u: users){
+            if (u.getName().equals(userName))return u.getPoints();
+        }
+        return 0;
+    }
+
     public boolean contains(String name, String password){
         return users.contains(new User(name,password));
     }
