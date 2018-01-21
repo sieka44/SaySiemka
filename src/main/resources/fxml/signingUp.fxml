@@ -18,14 +18,14 @@
             <Label layoutX="119.0" layoutY="46.0" text="nick" />
             <Label layoutX="105.0" layoutY="99.0" text="password" />
             <Label layoutX="87.0" layoutY="151.0" text="repeat password" />
-            <TextField id="nick" layoutX="226.0" layoutY="42.0" />
-            <PasswordField id="password" layoutX="226.0" layoutY="95.0" />
-            <PasswordField id="passwordAgain" layoutX="226.0" layoutY="147.0" />
+            <TextField fx:id="nick" layoutX="226.0" layoutY="42.0" />
+            <PasswordField fx:id="password" layoutX="226.0" layoutY="95.0" />
+            <PasswordField fx:id="passwordAgain" layoutX="226.0" layoutY="147.0" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Button id="signUpButton" layoutX="256.0" layoutY="44.0" mnemonicParsing="false" onAction="#signingUp" prefHeight="55.0"
+            <Button fx:id="signUpButton" layoutX="256.0" layoutY="44.0" mnemonicParsing="false" onAction="#signingUp" prefHeight="55.0"
                     prefWidth="88.0" style="-fx-background-color: pink; -fx-background-radius: 25;"
                     text="Sign up">
                <font>

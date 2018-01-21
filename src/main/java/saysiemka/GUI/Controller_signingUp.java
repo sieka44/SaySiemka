@@ -32,16 +32,13 @@ public class Controller_signingUp {
 
     @FXML
     public void initialize() {
-//        passwordAgain.setOnKeyPressed(event -> {
-//            if (event.getCode().equals(KeyCode.ENTER)) {
-//                signUp();
-//                event.consume();
-//            }
-//        });
-//
-//        signUpButton.setOnAction(e -> {
-//            signUp();
-//        });
+
+        passwordAgain.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                signUp();
+                event.consume();
+            }
+        });
     }
 
 
@@ -52,6 +49,7 @@ public class Controller_signingUp {
 
     private void signUp() {
         if(serverConnection==null) serverConnection= new ServerConnection();
+
         String name = nick.getText();
         String pass = password.getText();
         String pass2 = passwordAgain.getText();
@@ -70,6 +68,7 @@ public class Controller_signingUp {
                 e.printStackTrace();
             }
 
+            //TODO inf loop
             while (serverConnection.getLoggedIn()==null){}
 
             if(serverConnection.getLoggedIn()) {
