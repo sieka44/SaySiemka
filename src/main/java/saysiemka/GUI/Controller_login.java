@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 public class Controller_login {
     private FXMLLoader loader;
-
+    private ServerConnection serverConnection;
     @FXML
     private Button signInButton;
 
@@ -72,9 +72,10 @@ public class Controller_login {
 
     private void signIn() {
         System.out.println("signing in ...");
+        if(serverConnection==null) serverConnection= new ServerConnection();
         String s1 = nick.getText();
         String s2 = password.getText();
-        if(s1.length()>0 && s2.length()>0)userInfo.setLoginAndPass(s1,s2,false);
+        if(s1.length()>0 && s2.length()>0)serverConnection.login(s1,s2,"localhost",userInfo.getPORT());
         else {
             showAlert();
             return;
@@ -89,17 +90,20 @@ public class Controller_login {
             e.printStackTrace();
         }
 
-        while (userInfo.isLoggedIn()==null){
-        }
+        while (serverConnection.getLoggedIn()==null){}
 
-        if(userInfo.isLoggedIn()) {
+        if(serverConnection.getLoggedIn()) {
             AppWindow.setTitle("SaySiemka");
             Scene scene = new Scene(tabPane);
             AppWindow.setScene(scene);
+            Controller controller = (Controller) loader.getController();
+            serverConnection.setController(controller);
+            controller.setServerConnection(serverConnection);
             signInButton.getParent().getScene().getWindow().hide();
             AppWindow.show();
         }
         else {
+            serverConnection.setLoggedIn(null);
             showAlert();
         }
     }

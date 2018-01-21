@@ -238,9 +238,9 @@ public class Server implements Runnable {
     }
 
     private boolean signUp(String string) {
-        String name = string.split("/s/|/p/|/e/")[1];
-        String pass = string.split("/s/|/p/|/e/")[2];
-        return database.signIn(name, pass);
+        String token = string.split("/c/|/e/")[1];
+        String [] identities = token.split("/p/");
+        return database.signIn(identities[0], identities[1]);
     }
 
     private void quit() {

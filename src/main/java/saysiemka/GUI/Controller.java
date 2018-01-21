@@ -7,11 +7,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import saysiemka.language.LanguageController;
+import saysiemka.language.PolishLanguageController;
 import saysiemka.userInfo;
 
 import java.util.Arrays;
+import java.util.List;
 
-public class Controller implements Runnable{
+public class Controller{
     @FXML
     private TextField chatMessageFiled;
 
@@ -21,17 +23,13 @@ public class Controller implements Runnable{
     @FXML
     private ListView<String> userList;
 
+    ServerConnection serverConnection;
     LanguageController languageController;
-
-    private Thread run, listen;
-    private Client client;
-
-    private boolean setButton = true;
-    private boolean running = false;
 
     public Controller() {
         super();
-        login(userInfo.getLogin(),userInfo.getPassword(),"localhost",userInfo.getPORT());
+        //login(userInfo.getLogin(),userInfo.getPassword(),"localhost",userInfo.getPORT());
+        languageController = new PolishLanguageController();
     }
 
 
@@ -39,8 +37,9 @@ public class Controller implements Runnable{
     protected void sendMessage() {
         String message = chatMessageFiled.getText();
         this.chatMessageFiled.setText("");
+        List list = languageController.checkGrammar(message);
 
-        send(message,true);
+        serverConnection.send(message,true);
     }
 
     @FXML
@@ -54,71 +53,14 @@ public class Controller implements Runnable{
 
     }
 
-    private void login(String name, String password, String address, int port) {
-        client = new Client(name, address, port);
-        boolean connect = client.openConnection(address);
-        if (!connect) {
-            System.err.println("Connection failed!");
-            console("Connection failed!");
-        }
-        console("Attempting a connection to " + address + ":" + port + ", user: " + name);
-        String connection = "/c/ " + name + " /p/ " + password + " /e/";
-        client.send(connection.getBytes());
-        running = true;
-        run = new Thread(this, "Running");
-        run.start();
+    public void setServerConnection(ServerConnection serverConnection) {
+        this.serverConnection = serverConnection;
     }
 
-    public void run() {
-        listen();
+    public void addText(String text){
+        chatTextArea.appendText(text + "\n");
     }
-
-
-    private void send(String message, boolean isMessage) {//True for message
-        if (message.equals("")) return;
-        if (isMessage) {
-            message = client.getName() + ": " + message;
-            message = "/m/" + message + "/e/";
-        }
-        client.send(message.getBytes());
-    }
-
-    public void listen() {
-        listen = new Thread("Listen") {
-            public void run() {
-                while (running) {
-                    String message = client.receive();
-                    if (message.startsWith("/c/")) {
-                        client.setID(Integer.parseInt(message.split("/c/|/e/")[1]));
-                        console("Successfully connected to server! ID: " + client.getID());
-                        userInfo.setLoggedIn(true);
-                    } else if (message.startsWith("/f/")) {
-                        client.setID(Integer.parseInt(message.split("/f/|/e/")[1]));
-                        console("Failed to connect to server!");
-                        running = false;
-                        userInfo.setLoggedIn(false);
-                        client.close();
-                    } else if (message.startsWith("/m/")) {
-                        String text = message.substring(3);
-                        text = text.split("/e/")[0];
-                        chatTextArea.appendText(text + "\n");
-                    } else if (message.startsWith("/i/")) {
-                        String text = "/i/" + client.getID() + "/e/";
-                        send(text, false);
-                    } else if (message.startsWith("/u/")) {
-                        String[] u = message.split("/u/|/n/|/e/");
-                        userUpdate(Arrays.copyOfRange(u, 1, u.length - 1));
-                    } else if (message.startsWith("/d/")) {
-                        disconnect();
-                    }
-                    if(setButton && chatTextArea!=null)setEventHandler();
-                }
-            }
-        };
-        listen.start();
-    }
-
-    private void userUpdate(String[] users){
+    protected void userUpdate(String[] users){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -126,23 +68,5 @@ public class Controller implements Runnable{
                 userList.getItems().addAll(users);
             }
         });
-    }
-
-    public void disconnect(){
-        String disconnect = "/d/" + client.getID() + "/e/";
-        send(disconnect, false);
-        running = false;
-        client.close();
-    }
-
-    public void console(String message) {
-        System.out.println("console: "+message);
-    }
-
-    public void setEventHandler(){
-        chatMessageFiled.getParent().getScene().getWindow().setOnHiding(event -> Platform.runLater(() -> {
-            disconnect();
-            System.exit(0);
-        }));
     }
 }
