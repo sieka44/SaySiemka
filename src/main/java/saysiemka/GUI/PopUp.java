@@ -1,8 +1,10 @@
 package saysiemka.GUI;
 
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.TextInputDialog;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,8 +13,7 @@ import java.util.Optional;
  */
 public class PopUp {
     /**
-     *
-     * @param question - both question and numbered answers
+     * @param question   - both question and numbered answers
      * @param goodAnswer - "One", "Two" or "Three"
      */
     public void chooseOptionHorizontal(String question, String goodAnswer) {
@@ -21,15 +22,19 @@ public class PopUp {
         alert.setHeaderText("Choose the best option.");
         alert.setContentText(question);
 
-        ButtonType buttonTypeOne = new ButtonType("One");
-        ButtonType buttonTypeTwo = new ButtonType("Two");
-        ButtonType buttonTypeThree = new ButtonType("Three");
-        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        String[] words = new String[3];
+        words[0] = goodAnswer;
+        words[1] = createString1(goodAnswer);
+        words[2] = createString2(goodAnswer);
+        int a = (int)System.currentTimeMillis()%3;
+        ButtonType buttonTypeOne = new ButtonType(words[(a++)%3]);
+        ButtonType buttonTypeTwo = new ButtonType(words[(a++)%3]);
+        ButtonType buttonTypeThree = new ButtonType(words[(a)%3]);
 
-        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne){
+        if (result.get() == buttonTypeOne) {
             // ... user chose "One"
         } else if (result.get() == buttonTypeTwo) {
             // ... user chose "Two"
@@ -40,8 +45,33 @@ public class PopUp {
         }
     }
 
+    private String createString1(String base) {
+        if (base.contains("ea")) {
+            return base.replaceFirst("ea", "e");
+        } else if (base.contains("ae")) {
+            return base.replaceFirst("ae", "a");
+        } else if (base.contains("ie")){
+            return base.replaceFirst("ie","e");
+        } else if (base.contains("vi")){
+            return  base.replaceFirst("vi","va");
+        } else return base+"a";
+    }
+
+    private String createString2(String base){
+        if (base.contains("st")) {
+            return base.replaceFirst("st", "sd");
+        } else if (base.contains("ss")) {
+            return base.replaceFirst("ss", "s");
+        } else if (base.contains("tu")){
+            return base.replaceFirst("tu","ta");
+        } else if (base.contains("me")){
+            return  base.replaceFirst("me","ma");
+        } else if (base.contains("th")){
+            return  base.replaceFirst("th","h");
+        }else return base+"h";
+    }
+
     /**
-     *
      * @param question
      * @param goodAnswer
      */

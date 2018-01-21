@@ -18,11 +18,9 @@ public class QuizHandle implements HandlePopUp {
     @Override
     public void handleTask(RuleMatch rule) {
         if (rule.getSuggestedReplacements().size() == 1) {
-            System.out.println("//Quiz");
-            System.out.println(rule.getSuggestedReplacements());
+            String goodAnswer = rule.getSuggestedReplacements().get(0);
             PopUp popUp = new PopUp();
-            //TODO
-            popUp.chooseOptionHorizontal("My question", "Two");
+            popUp.chooseOptionHorizontal("Which of the words is a good form?", goodAnswer);
         } else {
             nextPopUp.handleTask(rule);
         }
