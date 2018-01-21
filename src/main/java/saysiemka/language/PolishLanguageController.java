@@ -28,12 +28,13 @@ public class PolishLanguageController implements LanguageController {
 
     @Override
     public List<RuleMatch> checkGrammar(String input) {
+        List<RuleMatch> ruleMatches = null;
         try {
-            List<RuleMatch> ruleMatches = languageTool.check(input);
+            ruleMatches = languageTool.check(input);
             return ruleMatches;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return ruleMatches;
     }
 }

@@ -1,18 +1,19 @@
 package saysiemka.language.chainOfResponsibility;
 
-import javafx.stage.Stage;
 import org.languagetool.rules.RuleMatch;
 
-public class PopUpHandler implements HandlePopUp {
-    HandlePopUp nextPopUp;
+public class PopUpHandler {
+    HandlePopUp popUp = new CannotHandle();
 
-    @Override
-    public void setNextHandler(HandlePopUp popUp) {
-        nextPopUp = popUp;
+    public PopUpHandler() {
+        popUp.setNextHandler(new QuizHandle());
+        popUp.setNextHandler(new ManySuggestionsHandle());
+        popUp.setNextHandler(new TooManySuggestionHandle());
     }
 
-    @Override
-    public void handleTask(RuleMatch rule) {
-        if(nextPopUp!=null)nextPopUp.handleTask(rule);
+    public void findPopUp(RuleMatch rule) {
+        System.out.println("finding pop up");
+        System.out.println("It may be: " + rule.getSuggestedReplacements());
+        popUp.handleTask(rule);
     }
 }

@@ -17,7 +17,7 @@ import saysiemka.userInfo;
 import java.util.Arrays;
 import java.util.List;
 
-public class Controller{
+public class Controller {
     @FXML
     private TextField chatMessageFiled;
 
@@ -45,13 +45,12 @@ public class Controller{
         this.chatMessageFiled.setText("");
         List<RuleMatch> list = languageController.checkGrammar(message);
         PopUpHandler handler = new PopUpHandler();
-        for(RuleMatch rule : list){
-            if(rule.getShortMessage()!=null) {
-                handler.setNextHandler(new CannotHandle());
-                handler.handleTask(rule);
+        for (RuleMatch rule : list) {
+            if (rule.getShortMessage() != null) {
+                handler.findPopUp(rule);
             }
         }
-        serverConnection.send(message,true);
+        serverConnection.send(message, true);
     }
 
     @FXML
@@ -73,10 +72,11 @@ public class Controller{
         }));
     }
 
-    public void addText(String text){
+    public void addText(String text) {
         chatTextArea.appendText(text + "\n");
     }
-    protected void userUpdate(String[] users){
+
+    protected void userUpdate(String[] users) {
         Platform.runLater(() -> {
             userList.getItems().clear();
             userList.getItems().addAll(users);

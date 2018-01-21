@@ -99,7 +99,6 @@ public class Controller_login {
             Controller controller = (Controller) loader.getController();
             serverConnection.setController(controller);
             controller.setServerConnection(serverConnection);
-            signInButton.getParent().getScene().getWindow().hide();
             AppWindow.show();
         }
         else {
