@@ -49,7 +49,7 @@
                     <top>
                         <BorderPane prefHeight="70.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                             <center>
-                                <Label text="Choose a chat room" BorderPane.alignment="CENTER">
+                                <Label text="Ranking" BorderPane.alignment="CENTER">
                                     <font>
                                         <Font size="20.0" />
                                     </font>

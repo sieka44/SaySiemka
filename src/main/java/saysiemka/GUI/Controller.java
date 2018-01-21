@@ -2,6 +2,7 @@ package saysiemka.GUI;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -11,8 +12,9 @@ import saysiemka.language.BritishEnglishController;
 import saysiemka.language.LanguageController;
 import saysiemka.language.chainOfResponsibility.PopUpHandler;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Controller {
     @FXML
@@ -33,6 +35,7 @@ public class Controller {
         super();
         languageController = new BritishEnglishController();
         popUp = new PopUpHandler();
+        chooseLanguage();
     }
 
 
@@ -83,5 +86,27 @@ public class Controller {
             userList.getItems().clear();
             userList.getItems().addAll(users);
         });
+    }
+
+    private void chooseLanguage() {
+        List<String> choices = new ArrayList<>();
+        choices.add("english");
+        choices.add("polish");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("english", choices);
+        dialog.setTitle("SaySiemka");
+        dialog.setHeaderText("What language would you like to practise?");
+        dialog.setContentText("Choose language:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            //TODO language is chosen
+            if (result.get() == "english") {
+
+            }
+            else {
+
+            }
+        }
     }
 }

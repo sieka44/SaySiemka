@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cbd022ae-f7e0-48d5-87ab-0ded9628dd98" name="Default" comment="">
+    <list default="true" id="cbd022ae-f7e0-48d5-87ab-0ded9628dd98" name="Default" comment="language can be">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/saysiemka/GUI/Controller.java" afterPath="$PROJECT_DIR$/src/main/java/saysiemka/GUI/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/saysiemka/GUI/Controller_login.java" afterPath="$PROJECT_DIR$/src/main/java/saysiemka/GUI/Controller_login.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/saysiemka/GUI/PopUp.java" afterPath="$PROJECT_DIR$/src/main/java/saysiemka/GUI/PopUp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/CannotHandle.java" afterPath="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/CannotHandle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/HandlePopUp.java" afterPath="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/HandlePopUp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/ManySuggestionsHandle.java" afterPath="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/ManySuggestionsHandle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/PopUpHandler.java" afterPath="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/PopUpHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/QuizHandle.java" afterPath="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/QuizHandle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/TooManySuggestionHandle.java" afterPath="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/TooManySuggestionHandle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/fxml/communicator_fxml.fxml" afterPath="$PROJECT_DIR$/src/main/resources/fxml/communicator_fxml.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -74,6 +67,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="Controller_login.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/saysiemka/GUI/Controller_login.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2">
+              <caret line="103" column="29" lean-forward="true" selection-start-line="103" selection-start-column="29" selection-end-line="103" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="HandlePopUp.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/HandlePopUp.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -106,19 +109,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RuleMatch.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/languagetool/2.0.1/23b3ab8a808827edb255f2ba8112fd6bb3456607/languagetool-2.0.1-sources.jar!/org/languagetool/rules/RuleMatch.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2134">
-              <caret line="220" column="22" lean-forward="false" selection-start-line="220" selection-start-column="22" selection-end-line="220" selection-end-column="22" />
-              <folding>
-                <element signature="e#6218#6219#0" expanded="true" />
-                <element signature="e#6256#6257#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="QuizHandle.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/QuizHandle.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -129,16 +119,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ManySuggestionsHandle.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/ManySuggestionsHandle.java">
+      <file leaf-file-name="communicator_fxml.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/communicator_fxml.fxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="33" column="72" lean-forward="false" selection-start-line="33" selection-start-column="72" selection-end-line="33" selection-end-column="72" />
-              <folding>
-                <marker date="1516576245547" expanded="true" signature="58:92" ph="..." />
-                <marker date="1516576245547" expanded="true" signature="1129:1163" ph="{...}" />
-              </folding>
+            <state relative-caret-position="306">
+              <caret line="55" column="31" lean-forward="false" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
+              <folding />
             </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
           </provider>
         </entry>
       </file>
@@ -165,8 +155,8 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/saysiemka/GUI/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="42" column="29" lean-forward="true" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
+            <state relative-caret-position="346">
+              <caret line="102" column="34" lean-forward="false" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -466,7 +456,6 @@
         <option value="$PROJECT_DIR$/src/main/java/saysiemka/GUI/Window.java" />
         <option value="$PROJECT_DIR$/src/main/java/saysiemka/GUI/AppWindow.java" />
         <option value="$PROJECT_DIR$/src/main/java/saysiemka/SaySiemkaApp.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/fxml/communicator_fxml.fxml" />
         <option value="$PROJECT_DIR$/src/main/resources/fxml/signingUp.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/saysiemka/language/LanguageController.java" />
         <option value="$PROJECT_DIR$/src/main/java/saysiemka/language/LanguageTest.java" />
@@ -482,6 +471,7 @@
         <option value="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/QuizHandle.java" />
         <option value="$PROJECT_DIR$/src/main/java/saysiemka/GUI/PopUp.java" />
         <option value="$PROJECT_DIR$/src/main/java/saysiemka/language/chainOfResponsibility/PopUpHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/fxml/communicator_fxml.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/saysiemka/GUI/Controller.java" />
       </list>
     </option>
@@ -1305,7 +1295,14 @@
       <option name="project" value="LOCAL" />
       <updated>1516566648253</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="messages are updated automatically">
+      <created>1516578314066</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1516578314066</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1396,7 +1393,8 @@
     <MESSAGE value="[GUI][signing up]" />
     <MESSAGE value="some changes in signing up" />
     <MESSAGE value="chain of responsibility and pop ups" />
-    <option name="LAST_COMMIT_MESSAGE" value="chain of responsibility and pop ups" />
+    <MESSAGE value="messages are updated automatically" />
+    <option name="LAST_COMMIT_MESSAGE" value="messages are updated automatically" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1511,17 +1509,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/saysiemka/db/MockDb.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/communicator_fxml.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-233">
-          <caret line="20" column="83" lean-forward="false" selection-start-line="20" selection-start-column="83" selection-end-line="20" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/login.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="129">
@@ -1624,16 +1611,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/saysiemka/GUI/Controller_login.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="773">
-          <caret line="97" column="44" lean-forward="false" selection-start-line="97" selection-start-column="44" selection-end-line="97" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/languagetool/2.0.1/23b3ab8a808827edb255f2ba8112fd6bb3456607/languagetool-2.0.1-sources.jar!/org/languagetool/rules/RuleMatch.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2134">
@@ -1725,10 +1702,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/communicator_fxml.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="55" column="31" lean-forward="false" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/saysiemka/GUI/Controller_login.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2">
+          <caret line="103" column="29" lean-forward="true" selection-start-line="103" selection-start-column="29" selection-end-line="103" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/saysiemka/GUI/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="42" column="29" lean-forward="true" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
+        <state relative-caret-position="346">
+          <caret line="102" column="34" lean-forward="false" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
