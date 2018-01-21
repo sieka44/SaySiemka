@@ -51,4 +51,16 @@ public class LanguageTest {
             System.out.println("-"+ruleMatch+"\n*"+ruleMatch.getSuggestedReplacements());
         }
     }
+    @Test
+    public void getShortMessage() throws IOException {
+        Language language = new BritishEnglish();
+        System.out.println("Test for English language:");
+        JLanguageTool languageTool = new JLanguageTool(language);
+        String input = "testig it";
+        List<RuleMatch> result = languageTool.check(input);
+        System.out.println("Checking: "+input);
+        for(RuleMatch ruleMatch : result){
+            System.out.println("-"+ruleMatch.getShortMessage()+"\n*"+ruleMatch.getSuggestedReplacements());
+        }
+    }
 }

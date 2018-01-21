@@ -6,8 +6,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import org.languagetool.rules.RuleMatch;
+import saysiemka.language.BritishEnglishController;
 import saysiemka.language.LanguageController;
 import saysiemka.language.PolishLanguageController;
+import saysiemka.language.chainOfResponsibility.CannotHandle;
+import saysiemka.language.chainOfResponsibility.PopUpHandler;
 import saysiemka.userInfo;
 
 import java.util.Arrays;
@@ -23,12 +27,15 @@ public class Controller{
     @FXML
     private ListView<String> userList;
 
-    ServerConnection serverConnection;
-    LanguageController languageController;
+    private ServerConnection serverConnection;
+    private LanguageController languageController;
+    private PopUpHandler popUp;
+
 
     public Controller() {
         super();
-        languageController = new PolishLanguageController();
+        languageController = new BritishEnglishController();
+        popUp = new PopUpHandler();
     }
 
 
@@ -36,8 +43,14 @@ public class Controller{
     protected void sendMessage() {
         String message = chatMessageFiled.getText();
         this.chatMessageFiled.setText("");
-        List list = languageController.checkGrammar(message);
-
+        List<RuleMatch> list = languageController.checkGrammar(message);
+        PopUpHandler handler = new PopUpHandler();
+        for(RuleMatch rule : list){
+            if(rule.getShortMessage()!=null) {
+                handler.setNextHandler(new CannotHandle());
+                handler.handleTask(rule);
+            }
+        }
         serverConnection.send(message,true);
     }
 
@@ -64,12 +77,9 @@ public class Controller{
         chatTextArea.appendText(text + "\n");
     }
     protected void userUpdate(String[] users){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                userList.getItems().clear();
-                userList.getItems().addAll(users);
-            }
+        Platform.runLater(() -> {
+            userList.getItems().clear();
+            userList.getItems().addAll(users);
         });
     }
 }

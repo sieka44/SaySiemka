@@ -2,6 +2,7 @@ package saysiemka.language;
 
 import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
+import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Polish;
 import org.languagetool.rules.RuleMatch;
 
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class BritishEnglishController implements LanguageController{
-    private static final Language language = new Polish();
+    private static final Language language = new BritishEnglish();
     private JLanguageTool languageTool;
     public BritishEnglishController(){
         try {
