@@ -8,10 +8,11 @@ import org.languagetool.rules.RuleMatch;
 import java.io.IOException;
 import java.util.List;
 
-public class BritishEnglishController implements LanguageController{
+public class BritishEnglishController implements LanguageController {
     private static final Language language = new BritishEnglish();
     private JLanguageTool languageTool;
-    public BritishEnglishController(){
+
+    public BritishEnglishController() {
         try {
             languageTool = new JLanguageTool(language);
         } catch (IOException e) {

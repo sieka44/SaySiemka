@@ -11,8 +11,7 @@ public class CannotHandle implements HandlePopUp {
     public void setNextHandler(HandlePopUp popUp) {
         if (nextPopUp == null) {
             nextPopUp = popUp;
-        }
-        else {
+        } else {
             nextPopUp.setNextHandler(popUp);
         }
     }
@@ -21,8 +20,7 @@ public class CannotHandle implements HandlePopUp {
     public PopUp handleTask(RuleMatch rule) {
         if (rule.getSuggestedReplacements().size() <= 0) {
             return new WrittenAnswer();
-        }
-        else {
+        } else {
             return nextPopUp.handleTask(rule);
         }
     }

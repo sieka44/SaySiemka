@@ -4,9 +4,6 @@ import org.languagetool.rules.RuleMatch;
 import saysiemka.GUI.PopUps.OptionsVertical;
 import saysiemka.GUI.PopUps.PopUp;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class ManySuggestionsHandle implements HandlePopUp {
     private HandlePopUp nextPopUp;
 

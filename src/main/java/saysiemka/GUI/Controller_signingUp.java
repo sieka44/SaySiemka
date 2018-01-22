@@ -45,7 +45,7 @@ public class Controller_signingUp {
     }
 
     private void signUp() {
-        if(serverConnection==null) serverConnection= new ServerConnection();
+        if (serverConnection == null) serverConnection = new ServerConnection();
 
         String name = nick.getText();
         String pass = password.getText();
@@ -65,9 +65,10 @@ public class Controller_signingUp {
                 e.printStackTrace();
             }
 
-            while (serverConnection.getLoggedIn()==null){}
+            while (serverConnection.getLoggedIn() == null) {
+            }
 
-            if(serverConnection.getLoggedIn()) {
+            if (serverConnection.getLoggedIn()) {
                 AppWindow.setTitle("SaySiemka");
                 Scene scene = new Scene(tabPane);
                 AppWindow.setScene(scene);
@@ -76,8 +77,7 @@ public class Controller_signingUp {
                 serverConnection.setController(controller);
                 controller.setServerConnection(serverConnection);
                 AppWindow.show();
-            }
-            else {
+            } else {
                 serverConnection.setLoggedIn(null);
                 showAlert("There is already user with this nick",
                         "Please, repeat your registration.");

@@ -6,7 +6,7 @@ import org.languagetool.rules.RuleMatch;
 /**
  * Created by barba on 22.01.2018.
  */
-public class GoodJob implements PopUp{
+public class GoodJob implements PopUp {
     @Override
     public void createPopUp(RuleMatch rule) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

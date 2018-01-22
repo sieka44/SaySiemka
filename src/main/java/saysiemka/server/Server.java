@@ -175,12 +175,9 @@ public class Server implements Runnable {
     private void sendToAll(String message) {
         if (message.startsWith("/m/")) {
             String text = message;
-            System.out.println(message);
-            String name = text.substring(3,text.indexOf(":")).trim();
-            System.out.println(text);
+            String name = text.substring(3, text.indexOf(":")).trim();
             int points = Integer.parseInt(text.split("/p/|/e/")[1].trim());
-            System.out.println(name + " " + points);
-            database.addPoints(name,points);
+            database.addPoints(name, points);
         }
         for (int i = 0; i < clients.size(); i++) {
             ServerClient client = clients.get(i);
@@ -227,7 +224,6 @@ public class Server implements Runnable {
             int id = UniqueIdentifier.getIdentifier();
             String ID;
             String token = string.split("/s/|/e/")[1];
-            System.out.println(token);
             String[] identities = token.split("/p/");
             if (database.signIn(identities[0], identities[1])) {
                 clients.add(new ServerClient(identities[0], packet.getAddress(), packet.getPort(), id));

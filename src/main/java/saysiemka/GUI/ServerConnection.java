@@ -2,7 +2,7 @@ package saysiemka.GUI;
 
 import java.util.Arrays;
 
-public class ServerConnection implements Runnable{
+public class ServerConnection implements Runnable {
     Controller controller;
     private Thread run, listen;
 
@@ -35,8 +35,8 @@ public class ServerConnection implements Runnable{
         run.start();
     }
 
-    public void signUp(String name, String password, String address, int port){
-        client = new Client(name,address,port);
+    public void signUp(String name, String password, String address, int port) {
+        client = new Client(name, address, port);
         boolean connect = client.openConnection(address);
         if (!connect) {
             System.err.println("Connection failed!");
@@ -58,7 +58,7 @@ public class ServerConnection implements Runnable{
     public void send(String message, boolean isMessage, int points) {//True for message
         if (message.equals("")) return;
         if (isMessage) {
-            message = client.getName() + ": " + message + "/p/ "+points;
+            message = client.getName() + ": " + message + "/p/ " + points;
             message = "/m/" + message + "/e/";
         }
         client.send(message.getBytes());
@@ -80,16 +80,16 @@ public class ServerConnection implements Runnable{
                         loggedIn = false;
                         client.close();
                     } else if (message.startsWith("/m/")) {
-                        if(controller!=null) {
+                        if (controller != null) {
                             String text = message.substring(3);
                             text = text.split("/e/|/p/")[0];
                             controller.addText(text);
                         }
                     } else if (message.startsWith("/i/")) {
                         String text = "/i/" + client.getID() + "/e/";
-                        send(text, false,0);
+                        send(text, false, 0);
                     } else if (message.startsWith("/u/")) {
-                        if(controller!=null) {
+                        if (controller != null) {
                             String[] u = message.split("/u/|/n/|/e/");
                             controller.userUpdate(Arrays.copyOfRange(u, 1, u.length - 1));
                         }
@@ -103,23 +103,23 @@ public class ServerConnection implements Runnable{
     }
 
 
-    public void disconnect(){
+    public void disconnect() {
         String disconnect = "/d/" + client.getID() + "/e/";
-        send(disconnect, false,0);
+        send(disconnect, false, 0);
         loggedIn = false;
         running = false;
         client.close();
     }
 
     public void console(String message) {
-        System.out.println("console: "+message);
+        System.out.println("console: " + message);
     }
 
     public void setController(Controller controller) {
         this.controller = controller;
     }
 
-    public void setLoggedIn(Boolean s){
+    public void setLoggedIn(Boolean s) {
         loggedIn = s;
     }
 }

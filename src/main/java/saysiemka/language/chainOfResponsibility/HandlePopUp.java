@@ -5,5 +5,6 @@ import saysiemka.GUI.PopUps.PopUp;
 
 public interface HandlePopUp {
     void setNextHandler(HandlePopUp popUp);
+
     PopUp handleTask(RuleMatch rule);
 }

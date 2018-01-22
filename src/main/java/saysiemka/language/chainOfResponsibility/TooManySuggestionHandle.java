@@ -11,8 +11,7 @@ public class TooManySuggestionHandle implements HandlePopUp {
     public void setNextHandler(HandlePopUp popUp) {
         if (nextPopUp == null) {
             nextPopUp = popUp;
-        }
-        else {
+        } else {
             nextPopUp.setNextHandler(popUp);
         }
     }

@@ -27,6 +27,7 @@ public class LanguageTest {
             }
         }
     }
+
     @Test
     public void gettingPolishSuggestionsTest() throws IOException {
         Language language = Language.getLanguageForName("Polish");
@@ -34,11 +35,12 @@ public class LanguageTest {
         JLanguageTool languageTool = new JLanguageTool(language);
         String input = "konstfruktor";
         List<RuleMatch> result = languageTool.check(input);
-        System.out.println("Sprawdzanie: "+input);
-        for(RuleMatch ruleMatch : result){
-            System.out.println("-"+ruleMatch+"\n*"+ruleMatch.getSuggestedReplacements());
+        System.out.println("Sprawdzanie: " + input);
+        for (RuleMatch ruleMatch : result) {
+            System.out.println("-" + ruleMatch + "\n*" + ruleMatch.getSuggestedReplacements());
         }
     }
+
     @Test
     public void gettingEnglishSuggestionTest() throws IOException {
         Language language = new BritishEnglish();
@@ -46,11 +48,12 @@ public class LanguageTest {
         JLanguageTool languageTool = new JLanguageTool(language);
         String input = "Testig it";
         List<RuleMatch> result = languageTool.check(input);
-        System.out.println("Checking: "+input);
-        for(RuleMatch ruleMatch : result){
-            System.out.println("-"+ruleMatch+"\n*"+ruleMatch.getSuggestedReplacements());
+        System.out.println("Checking: " + input);
+        for (RuleMatch ruleMatch : result) {
+            System.out.println("-" + ruleMatch + "\n*" + ruleMatch.getSuggestedReplacements());
         }
     }
+
     @Test
     public void getShortMessage() throws IOException {
         Language language = new BritishEnglish();
@@ -58,9 +61,9 @@ public class LanguageTest {
         JLanguageTool languageTool = new JLanguageTool(language);
         String input = "testig it";
         List<RuleMatch> result = languageTool.check(input);
-        System.out.println("Checking: "+input);
-        for(RuleMatch ruleMatch : result){
-            System.out.println("-"+ruleMatch.getShortMessage()+"\n*"+ruleMatch.getSuggestedReplacements());
+        System.out.println("Checking: " + input);
+        for (RuleMatch ruleMatch : result) {
+            System.out.println("-" + ruleMatch.getShortMessage() + "\n*" + ruleMatch.getSuggestedReplacements());
         }
     }
 }

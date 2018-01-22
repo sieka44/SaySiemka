@@ -53,9 +53,9 @@ public class Controller {
                 if (rule.getShortMessage() != null) {
                     words[i] = handler.findPopUp(rule);
                     boolean getPoint = words[i].contains(".");
-                    if (getPoint){
+                    if (getPoint) {
                         System.out.println("+");
-                        words[i]=words[i].substring(1);
+                        words[i] = words[i].substring(1);
                         points++;
                     }
                 }
@@ -106,12 +106,11 @@ public class Controller {
         dialog.setContentText("Choose language:");
 
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
+        if (result.isPresent()) {
             //TODO language is chosen
             if (result.get() == "english") {
 
-            }
-            else {
+            } else {
 
             }
         }

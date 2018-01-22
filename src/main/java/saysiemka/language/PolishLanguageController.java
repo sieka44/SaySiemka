@@ -11,7 +11,8 @@ import java.util.List;
 public class PolishLanguageController implements LanguageController {
     private static final Language language = new Polish();
     private JLanguageTool languageTool;
-    public PolishLanguageController(){
+
+    public PolishLanguageController() {
         try {
             languageTool = new JLanguageTool(language);
         } catch (IOException e) {

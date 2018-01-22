@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * Created by barba on 22.01.2018.
  */
-public class OptionsVertical implements PopUp{
+public class OptionsVertical implements PopUp {
     private String answer;
 
     @Override

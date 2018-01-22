@@ -6,6 +6,7 @@ import saysiemka.GUI.PopUps.PopUp;
 public class PopUpHandler {
     HandlePopUp handler = new CannotHandle();
     boolean points = false;
+
     public PopUpHandler() {
         handler.setNextHandler(new QuizHandle());
         handler.setNextHandler(new ManySuggestionsHandle());

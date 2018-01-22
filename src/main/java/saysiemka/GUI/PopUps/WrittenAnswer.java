@@ -8,7 +8,7 @@ import java.util.Optional;
 /**
  * Created by barba on 22.01.2018.
  */
-public class WrittenAnswer implements PopUp{
+public class WrittenAnswer implements PopUp {
     private String answer;
 
     @Override

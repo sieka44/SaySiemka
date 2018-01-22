@@ -7,5 +7,6 @@ import org.languagetool.rules.RuleMatch;
  */
 public interface PopUp {
     void createPopUp(RuleMatch rule);
+
     String getAnswer();
 }
