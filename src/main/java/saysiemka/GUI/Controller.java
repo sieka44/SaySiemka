@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import org.languagetool.rules.RuleMatch;
 import saysiemka.language.BritishEnglishController;
 import saysiemka.language.LanguageController;
+import saysiemka.language.PolishLanguageController;
 import saysiemka.language.chainOfResponsibility.PopUpHandler;
 
 import java.util.ArrayList;
@@ -33,7 +34,6 @@ public class Controller {
 
     public Controller() {
         super();
-        languageController = new BritishEnglishController();
         popUp = new PopUpHandler();
         chooseLanguage();
     }
@@ -99,7 +99,6 @@ public class Controller {
         List<String> choices = new ArrayList<>();
         choices.add("english");
         choices.add("polish");
-
         ChoiceDialog<String> dialog = new ChoiceDialog<>("english", choices);
         dialog.setTitle("SaySiemka");
         dialog.setHeaderText("What language would you like to practise?");
@@ -107,11 +106,10 @@ public class Controller {
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
-            //TODO language is chosen
-            if (result.get() == "english") {
-
+            if (result.get() == "English") {
+                languageController = new BritishEnglishController();
             } else {
-
+                languageController = new PolishLanguageController();
             }
         }
     }
