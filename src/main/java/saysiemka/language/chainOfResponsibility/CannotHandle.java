@@ -1,7 +1,8 @@
 package saysiemka.language.chainOfResponsibility;
 
 import org.languagetool.rules.RuleMatch;
-import saysiemka.GUI.PopUp;
+import saysiemka.GUI.PopUps.PopUp;
+import saysiemka.GUI.PopUps.WrittenAnswer;
 
 public class CannotHandle implements HandlePopUp {
     private HandlePopUp nextPopUp;
@@ -17,11 +18,9 @@ public class CannotHandle implements HandlePopUp {
     }
 
     @Override
-    public String handleTask(RuleMatch rule) {
+    public PopUp handleTask(RuleMatch rule) {
         if (rule.getSuggestedReplacements().size() <= 0) {
-            System.out.println("//Cannot handle - no suggestions!");
-            PopUp popUp = new PopUp();
-            return popUp.writeAnswer("No suggestions. Could you write it again?");
+            return new WrittenAnswer();
         }
         else {
             return nextPopUp.handleTask(rule);

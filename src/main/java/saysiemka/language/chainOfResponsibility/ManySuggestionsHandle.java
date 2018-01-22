@@ -1,7 +1,8 @@
 package saysiemka.language.chainOfResponsibility;
 
 import org.languagetool.rules.RuleMatch;
-import saysiemka.GUI.PopUp;
+import saysiemka.GUI.PopUps.OptionsVertical;
+import saysiemka.GUI.PopUps.PopUp;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,20 +20,9 @@ public class ManySuggestionsHandle implements HandlePopUp {
     }
 
     @Override
-    public String handleTask(RuleMatch rule) {
+    public PopUp handleTask(RuleMatch rule) {
         if (rule.getSuggestedReplacements().size() < 10) {
-            System.out.println("//Many suggestions!");
-            System.out.println(rule.getSuggestedReplacements());
-            PopUp popUp = new PopUp();
-            List<String> list = new LinkedList<>();
-
-            for (int i = 0; i < 10
-                    && i < rule.getSuggestedReplacements().size(); i++) {
-                list.add(rule.getSuggestedReplacements().get(i));
-            }
-
-            return popUp.chooseOptionVertical("What should be that word?", list);
-
+            return new OptionsVertical();
         } else {
             return nextPopUp.handleTask(rule);
         }

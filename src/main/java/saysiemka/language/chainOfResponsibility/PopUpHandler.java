@@ -1,19 +1,23 @@
 package saysiemka.language.chainOfResponsibility;
 
 import org.languagetool.rules.RuleMatch;
+import saysiemka.GUI.PopUps.PopUp;
 
 public class PopUpHandler {
-    HandlePopUp popUp = new CannotHandle();
+    HandlePopUp handler = new CannotHandle();
     boolean points = false;
     public PopUpHandler() {
-        popUp.setNextHandler(new QuizHandle());
-        popUp.setNextHandler(new ManySuggestionsHandle());
-        popUp.setNextHandler(new TooManySuggestionHandle());
+        handler.setNextHandler(new QuizHandle());
+        handler.setNextHandler(new ManySuggestionsHandle());
+        handler.setNextHandler(new TooManySuggestionHandle());
     }
 
     public String findPopUp(RuleMatch rule) {
         System.out.println("finding pop up");
         System.out.println("It may be: " + rule.getSuggestedReplacements());
-        return popUp.handleTask(rule);
+
+        PopUp popUp = handler.handleTask(rule);
+        popUp.createPopUp(rule);
+        return popUp.getAnswer();
     }
 }

@@ -1,7 +1,8 @@
 package saysiemka.language.chainOfResponsibility;
 
 import org.languagetool.rules.RuleMatch;
-import saysiemka.GUI.PopUp;
+import saysiemka.GUI.PopUps.OptionsHorizontal;
+import saysiemka.GUI.PopUps.PopUp;
 
 public class QuizHandle implements HandlePopUp {
     private HandlePopUp nextPopUp;
@@ -16,11 +17,9 @@ public class QuizHandle implements HandlePopUp {
     }
 
     @Override
-    public String handleTask(RuleMatch rule) {
+    public PopUp handleTask(RuleMatch rule) {
         if (rule.getSuggestedReplacements().size() == 1) {
-            String goodAnswer = rule.getSuggestedReplacements().get(0);
-            PopUp popUp = new PopUp();
-            return popUp.chooseOptionHorizontal("Which of the words is a good form?", goodAnswer);
+            return new OptionsHorizontal();
         } else {
             return nextPopUp.handleTask(rule);
         }

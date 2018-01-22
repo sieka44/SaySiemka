@@ -1,7 +1,8 @@
 package saysiemka.language.chainOfResponsibility;
 
 import org.languagetool.rules.RuleMatch;
-import saysiemka.GUI.PopUp;
+import saysiemka.GUI.PopUps.PopUp;
+import saysiemka.GUI.PopUps.WrittenAnswer;
 
 public class TooManySuggestionHandle implements HandlePopUp {
     private HandlePopUp nextPopUp;
@@ -17,10 +18,7 @@ public class TooManySuggestionHandle implements HandlePopUp {
     }
 
     @Override
-    public String handleTask(RuleMatch rule) {
-        System.out.println("//Too many suggestions. Could u specify?");
-        System.out.println(rule.getSuggestedReplacements());
-        PopUp popUp = new PopUp();
-        return popUp.writeAnswer("Too many sugestions. Could you specify?");
+    public PopUp handleTask(RuleMatch rule) {
+        return new WrittenAnswer();
     }
 }

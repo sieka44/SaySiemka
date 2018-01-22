@@ -37,7 +37,7 @@
                         </BorderPane>
                     </top>
                     <center>
-                        <TextArea fx:id="chatTextArea" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: yellow;" BorderPane.alignment="CENTER" />
+                        <TextArea fx:id="chatTextArea" prefHeight="200.0" prefWidth="200.0" editable="false" style="-fx-background-color: yellow;" BorderPane.alignment="CENTER" />
                     </center>
                 </BorderPane>
             </content>
@@ -79,7 +79,7 @@
                         </BorderPane>
                     </top>
                     <center>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="text" BorderPane.alignment="CENTER" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" text="In progress" BorderPane.alignment="CENTER" />
                     </center>
                 </BorderPane>
             </content>

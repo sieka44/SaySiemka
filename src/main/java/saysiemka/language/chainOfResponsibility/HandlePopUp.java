@@ -1,8 +1,9 @@
 package saysiemka.language.chainOfResponsibility;
 
 import org.languagetool.rules.RuleMatch;
+import saysiemka.GUI.PopUps.PopUp;
 
 public interface HandlePopUp {
     void setNextHandler(HandlePopUp popUp);
-    String handleTask(RuleMatch rule);
+    PopUp handleTask(RuleMatch rule);
 }
