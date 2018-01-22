@@ -1,20 +1,23 @@
 package saysiemka.GUI;
 
-import javafx.application.Platform;
-import saysiemka.userInfo;
-
 import java.util.Arrays;
 
 public class ServerConnection implements Runnable{
     Controller controller;
     private Thread run, listen;
+
     private Client client;
 
     private Boolean loggedIn;
+
     private boolean running = false;
 
     public Boolean getLoggedIn() {
         return loggedIn;
+    }
+
+    public Client getClient() {
+        return client;
     }
 
     public void login(String name, String password, String address, int port) {
@@ -52,10 +55,10 @@ public class ServerConnection implements Runnable{
     }
 
 
-    public void send(String message, boolean isMessage) {//True for message
+    public void send(String message, boolean isMessage, int points) {//True for message
         if (message.equals("")) return;
         if (isMessage) {
-            message = client.getName() + ": " + message;
+            message = client.getName() + ": " + message + "/p/ "+points;
             message = "/m/" + message + "/e/";
         }
         client.send(message.getBytes());
@@ -84,7 +87,7 @@ public class ServerConnection implements Runnable{
                         }
                     } else if (message.startsWith("/i/")) {
                         String text = "/i/" + client.getID() + "/e/";
-                        send(text, false);
+                        send(text, false,0);
                     } else if (message.startsWith("/u/")) {
                         if(controller!=null) {
                             String[] u = message.split("/u/|/n/|/e/");
@@ -102,7 +105,7 @@ public class ServerConnection implements Runnable{
 
     public void disconnect(){
         String disconnect = "/d/" + client.getID() + "/e/";
-        send(disconnect, false);
+        send(disconnect, false,0);
         loggedIn = false;
         running = false;
         client.close();

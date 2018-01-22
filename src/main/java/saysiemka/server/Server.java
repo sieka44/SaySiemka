@@ -174,8 +174,9 @@ public class Server implements Runnable {
 
     private void sendToAll(String message) {
         if (message.startsWith("/m/")) {
-            String text = message.substring(3);
-            text = text.split("/e/")[0];
+            String text = message;
+            String[] update = text.split("/m/|/e/|/p/|:");//  /m/ kto0: messege1 /p/ pkt2 /e/
+            database.addPoints(update[0],Integer.parseInt(update[2]));
         }
         for (int i = 0; i < clients.size(); i++) {
             ServerClient client = clients.get(i);

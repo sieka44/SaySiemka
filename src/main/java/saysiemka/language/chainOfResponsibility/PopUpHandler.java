@@ -4,7 +4,7 @@ import org.languagetool.rules.RuleMatch;
 
 public class PopUpHandler {
     HandlePopUp popUp = new CannotHandle();
-
+    boolean points = false;
     public PopUpHandler() {
         popUp.setNextHandler(new QuizHandle());
         popUp.setNextHandler(new ManySuggestionsHandle());

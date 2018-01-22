@@ -10,6 +10,10 @@ public class MockDb {
         users.add(new User("a","a"));
         users.add(new User("b","b"));
         users.add(new User("c","c"));
+        addPoints("a",10);
+        addPoints("b",16);
+        addPoints("c",6);
+
     }
 
     public int getPoint(String userName){
@@ -17,6 +21,14 @@ public class MockDb {
             if (u.getName().equals(userName))return u.getPoints();
         }
         return 0;
+    }
+
+    public void addPoints(String name, int points){
+        for(User user : users){
+            if(user.getName().equals(name.trim())){
+                user.addPoints(points);
+            }
+        }
     }
 
     public boolean contains(String name, String password){

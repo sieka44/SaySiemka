@@ -3,7 +3,6 @@ package saysiemka.language;
 import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 import org.languagetool.language.BritishEnglish;
-import org.languagetool.language.Polish;
 import org.languagetool.rules.RuleMatch;
 
 import java.io.IOException;

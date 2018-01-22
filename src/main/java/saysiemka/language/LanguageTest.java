@@ -1,10 +1,10 @@
 package saysiemka.language;
 
-import org.testng.annotations.Test;
 import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 import org.languagetool.language.BritishEnglish;
 import org.languagetool.rules.RuleMatch;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.util.List;

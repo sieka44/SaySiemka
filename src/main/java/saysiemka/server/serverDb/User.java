@@ -13,6 +13,10 @@ public class User {
         points = 0;
     }
 
+    public void addPoints(int points) {
+        this.points += points;
+    }
+
     public String getName() {
         return name;
     }

@@ -45,17 +45,23 @@ public class Controller {
         this.chatMessageFiled.setText("");
         List<RuleMatch> list;
         String[] words = message.split(" ");
+        int points = 0;
         PopUpHandler handler = new PopUpHandler();
         for (int i = 0; i < words.length; i++) {
             list = languageController.checkGrammar(words[i]);
             for (RuleMatch rule : list) {
                 if (rule.getShortMessage() != null) {
                     words[i] = handler.findPopUp(rule);
+                    boolean getpoint = words[i].contains(".");
+                    if (getpoint){
+                        words[i]=words[i].substring(1);
+                        points++;
+                    }
                 }
             }
         }
         message = String.join(" ", words);
-        serverConnection.send(message, true);
+        serverConnection.send(message, true, points);
     }
 
     @FXML

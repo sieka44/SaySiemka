@@ -7,25 +7,30 @@ public class Client {
 	private DatagramSocket socket;
 
 	private String name, address;
+    private int points;
+    private int port;
+    private InetAddress ip;
+    private Thread send;
+    private int ID = -1;
 
-    public Integer getPoints() {
-        return points;
+    public boolean isGreater(){
+        return points>0;
+    }
+    public int getAndClearPoints() {
+        Integer outcome = points;
+        points = 0;
+        return outcome;
     }
 
-    public void setPoints(Integer points) {
-        this.points = points;
+    public void addPoints(int points) {
+        this.points += points;
     }
-
-    private Integer points;
-	private int port;
-	private InetAddress ip;
-	private Thread send;
-	private int ID = -1;
 
 	public Client(String name, String address, int port) {
 		this.name = name;
 		this.address = address;
 		this.port = port;
+		points = 0;
 	}
 
 	public String getName() {
