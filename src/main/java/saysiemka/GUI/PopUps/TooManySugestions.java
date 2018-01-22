@@ -8,15 +8,15 @@ import java.util.Optional;
 /**
  * Created by barba on 22.01.2018.
  */
-public class WrittenAnswer implements PopUp {
+public class TooManySugestions implements PopUp {
     private String answer;
 
     @Override
     public void createPopUp(RuleMatch rule) {
         TextInputDialog dialog = new TextInputDialog("Your answer");
         dialog.setTitle("Prove yourself");
-        dialog.setHeaderText("We don't know what do you mean.");
-        dialog.setContentText("Please write it again:");
+        dialog.setHeaderText("Too many sugestions. Could you specify?\n" + rule.getSuggestedReplacements());
+        dialog.setContentText("Please write the answer:");
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {

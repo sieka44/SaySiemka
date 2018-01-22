@@ -2,6 +2,7 @@ package saysiemka.language.chainOfResponsibility;
 
 import org.languagetool.rules.RuleMatch;
 import saysiemka.GUI.PopUps.PopUp;
+import saysiemka.GUI.PopUps.TooManySugestions;
 import saysiemka.GUI.PopUps.WrittenAnswer;
 
 public class TooManySuggestionHandle implements HandlePopUp {
@@ -18,6 +19,6 @@ public class TooManySuggestionHandle implements HandlePopUp {
 
     @Override
     public PopUp handleTask(RuleMatch rule) {
-        return new WrittenAnswer();
+        return new TooManySugestions();
     }
 }
