@@ -147,9 +147,9 @@ public class Server implements Runnable {
         if (clients.size() <= 0) return;
         String users = "/u/";
         for (int i = 0; i < clients.size() - 1; i++) {
-            users += clients.get(i).name + ", " + database.getPoint(clients.get(i).name) + "/n/";
+            users += clients.get(i).name + ", " + database.getPoint(clients.get(i).name.trim()) + "/n/";
         }
-        users += clients.get(clients.size() - 1).name + ", " + database.getPoint(clients.get(clients.size() - 1).name) + "/e/";
+        users += clients.get(clients.size() - 1).name + ", " + database.getPoint(clients.get(clients.size() - 1).name.trim()) + "/e/";
         sendToAll(users);
     }
 
@@ -175,8 +175,12 @@ public class Server implements Runnable {
     private void sendToAll(String message) {
         if (message.startsWith("/m/")) {
             String text = message;
-            String[] update = text.split("/m/|/e/|/p/|:");//  /m/ kto0: messege1 /p/ pkt2 /e/
-            database.addPoints(update[0],Integer.parseInt(update[2]));
+            System.out.println(message);
+            String name = text.substring(3,text.indexOf(":")).trim();
+            System.out.println(text);
+            int points = Integer.parseInt(text.split("/p/|/e/")[1].trim());
+            System.out.println(name + " " + points);
+            database.addPoints(name,points);
         }
         for (int i = 0; i < clients.size(); i++) {
             ServerClient client = clients.get(i);

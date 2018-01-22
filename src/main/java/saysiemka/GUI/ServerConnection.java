@@ -82,7 +82,7 @@ public class ServerConnection implements Runnable{
                     } else if (message.startsWith("/m/")) {
                         if(controller!=null) {
                             String text = message.substring(3);
-                            text = text.split("/e/")[0];
+                            text = text.split("/e/|/p/")[0];
                             controller.addText(text);
                         }
                     } else if (message.startsWith("/i/")) {

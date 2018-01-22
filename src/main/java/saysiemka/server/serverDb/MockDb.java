@@ -13,6 +13,8 @@ public class MockDb {
         addPoints("a",10);
         addPoints("b",16);
         addPoints("c",6);
+        System.out.println(getPoint("a"));
+        System.out.println(getPoint("b"));
 
     }
 
@@ -22,6 +24,7 @@ public class MockDb {
         }
         return 0;
     }
+
 
     public void addPoints(String name, int points){
         for(User user : users){

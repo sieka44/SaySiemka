@@ -52,8 +52,9 @@ public class Controller {
             for (RuleMatch rule : list) {
                 if (rule.getShortMessage() != null) {
                     words[i] = handler.findPopUp(rule);
-                    boolean getpoint = words[i].contains(".");
-                    if (getpoint){
+                    boolean getPoint = words[i].contains(".");
+                    if (getPoint){
+                        System.out.println("+");
                         words[i]=words[i].substring(1);
                         points++;
                     }
